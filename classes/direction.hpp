@@ -6,4 +6,5 @@ struct Direction{
 		int y;
 
 		Direction(int x, int y);
+		bool operator<(const Direction& other) const;
 };

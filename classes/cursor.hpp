@@ -6,13 +6,15 @@
 
 class Cursor{
 	private:
-		CardPile* pile;
-		unsigned int index;
+		Section* section;
+		unsigned int pileIndex;
+		unsigned int cardIndex;
 	
 	public:
+		Cursor(Section* section);
+		
 		bool locked;
-		void Move(Direction direction, Section section);
-		unsigned int GetIndex();
+		void Move(Direction direction);
 		CardPile* GetPile();
 		Card* GetCard();
 };

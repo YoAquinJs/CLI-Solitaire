@@ -2,10 +2,8 @@
 
 #include <vector>
 #include <map>
-
 #include "cardPile.hpp"
 #include "direction.hpp"
-
 
 class Section{
 	private:
@@ -17,5 +15,8 @@ class Section{
 		Section(int count);
 		~Section();
 		
+		int Count();
 		void LinkSurroundingSection(Direction direction, Section* section);
+		Section* GetSurroundingSection(Direction direction);
+		CardPile* GetAt(int index);
 };

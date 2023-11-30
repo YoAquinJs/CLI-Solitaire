@@ -11,6 +11,10 @@ bool CardPile::CanAddCard(Card* card){
 
 CardPile::CardPile(std::vector<Card*> cards) : cards(cards) {}
 
+int CardPile::Count(){
+	return cards.size();
+}
+
 bool CardPile::TryAddCard(Card* card){
 	if (!CanAddCard(card))
 		return false;
@@ -19,10 +23,14 @@ bool CardPile::TryAddCard(Card* card){
 	return true;
 }
 
-void CardPile::RemoveLast(){
+bool CardPile::MoveCard(CardPile* destination){
+	if (!(destination->TryAddCard(GetAt(0)))){
+		return false;
+	}
 	cards.erase(cards.begin());
+	return true;
 }
 
-Card* CardPile::GetIndex(unsigned int index){
+Card* CardPile::GetAt(unsigned int index){
 	return cards.at(index);
 }

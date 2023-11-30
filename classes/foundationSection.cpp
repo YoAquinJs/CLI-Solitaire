@@ -1,8 +1,8 @@
 #include <vector>
 #include <map>
 
-#include "deck.h"
-#include "foundation.h"
+#include "deck.hpp"
+#include "foundation.hpp"
 
 class FundationSection {
 	public:
