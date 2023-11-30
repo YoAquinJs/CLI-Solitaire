@@ -14,5 +14,5 @@ class CardPile{
 
 		bool TryAddCard(Card* card);
 		void RemoveLast();
-		Card* GetLast();
+		Card* GetIndex(unsigned int index);
 };

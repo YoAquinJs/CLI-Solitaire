@@ -1,14 +1,8 @@
-#include "cardPile.h"
+#include "cardPile.hpp"
 
 class CardColumn : public CardPile {
 	private:
-		bool CanAddCard(Card* card) override {
-			Card* topStackCard = this->cards.top();
-			return card->IsLesserRank(topStackCard) && card->IsDiffColor(topStackCard);
-		}
+		bool CanAddCard(Card* card) override;
 	public:
-		CardColumn DivideFrom(int index){
-			CardColumn newColumn;
-
-		}
+		CardColumn DivideFrom(int index);
 };
