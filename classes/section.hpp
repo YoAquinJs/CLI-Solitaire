@@ -7,16 +7,16 @@
 
 class Section{
 	private:
-		const int count;
 		std::vector<CardPile*> piles;
 		std::map<Direction, Section*> surroundingSections;
 
 	public:
-		Section(int count);
+		Section();
 		~Section();
 		
 		int Count();
 		void LinkSurroundingSection(Direction direction, Section* section);
 		Section* GetSurroundingSection(Direction direction);
 		CardPile* GetAt(int index);
+		void AddPile(CardPile* pile);
 };

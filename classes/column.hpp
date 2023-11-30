@@ -3,11 +3,11 @@
 #include <vector>
 #include "cardPile.hpp"
 
-class CardColumn : public CardPile {
+class Column : public CardPile {
 	private:
 		bool CanAddCard(Card* card) override;
 		
 	public:
-		CardColumn(std::vector<Card*> cards);
-		bool MoveSubColumn(int index, CardColumn* destination);
+		Column(std::vector<Card*> cards);
+		bool MoveSubColumn(int index, Column* destination);
 };

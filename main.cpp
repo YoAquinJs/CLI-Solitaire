@@ -2,26 +2,41 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#include <random>
-#include <iomanip>
 
-#include "classes/card.hpp"
-#include "classes/cardPile.hpp"
+#include "classes/deck.hpp"
+#include "classes/section.hpp"
 #include "classes/column.hpp"
+#include "classes/drawPile.hpp"
+#include "classes/foundation.hpp"
 #include "magic_enum/magic_enum.hpp"
 
 //Run
-//g++ *.cpp classes/card.cpp -o main && ./main
+//g++ *.cpp classes/*.cpp -o main && ./main
 int main(){
 	std::cout << "--------------------------Solitarie--------------------------\n";
 	std::cout << std::boolalpha;
-	
-	Card card2(CardSuit::CLUBS, CardRank::TWO);
-	Card card3(CardSuit::DIAMONDS, CardRank::THREE);
-	Card card4(CardSuit::CLUBS, CardRank::FOUR);
 
-	CardColumn column1({&card2,&card3,&card4});
-	CardColumn column2({&card4});
+	int const tablueColumns = 7;
+	int const drawDeck = 52-(tablueColumns*(tablueColumns+1)/2);
+
+	//Deck
+	Deck deck;
+	deck.Shuffle();
+	
+	//Sections
+	Section drawSection;
+	drawSection.AddPile(new DrawPile(deck.GetRange(drawDeck)));
+	drawSection.AddPile(new CardPile(std::vector<Card*>()));
+
+	Section foundationSection;
+	for (int i = 0; i < magic_enum::enum_count<CardSuit>(); i++){
+		foundationSection.AddPile(new Foundation());
+	}
+
+	Section tableuSection;
+	for (int i = 1; i <= tablueColumns; i++){
+		tableuSection.AddPile(new Column(deck.GetRange(i)));
+	}
 
 	return 0;
 }

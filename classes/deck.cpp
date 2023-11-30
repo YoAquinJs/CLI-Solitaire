@@ -8,7 +8,7 @@ void Deck::swap (Card *a, Card *b) {
     *b = temp; 
 } 
 
-Deck::Deck() {
+Deck::Deck() : fetchedCards(0) {
 	int suitSize = static_cast<int>(CardSuit::CLUBS)+1;
 	int rankSize = static_cast<int>(CardRank::KING)+1;
 	deckSize = suitSize*rankSize;
@@ -32,14 +32,15 @@ void Deck::Shuffle(){
 	} 
 }
 
-CardPile* Deck::GetRange(int start, int count){
-	std::vector<Card*> pileStack{};
+std::vector<Card*> Deck::GetRange(int count){
+	std::vector<Card*> pileStack;
 
-	for (int i = start; i < start+count; i++) {
+	for (int i = fetchedCards; i < fetchedCards+count; i++) {
 		pileStack.push_back(cards[i]);
 	}
 
-	return &CardPile(pileStack);
+	fetchedCards += count;
+	return pileStack;
 }
 
 Deck::~Deck(){

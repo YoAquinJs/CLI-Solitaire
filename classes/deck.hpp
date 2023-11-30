@@ -1,10 +1,12 @@
 #pragma once
 
+#include <vector>
 #include "cardPile.hpp"
 
 class Deck{
 	private:
 		int deckSize;
+		int fetchedCards;
 		Card** cards;
 
 		void swap (Card *a, Card *b);
@@ -14,5 +16,5 @@ class Deck{
 		~Deck();
 
 		void Shuffle();
-		CardPile* GetRange(int start, int count);
+		std::vector<Card*> GetRange(int fetchedCards);
 };

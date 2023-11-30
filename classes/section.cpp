@@ -3,11 +3,11 @@
 #include "cardPile.hpp"
 #include "section.hpp"
 
-Section::Section(int count) : count(count) {
-	for (int i = 0; i < count; i++){
-		std::vector<Card*> emptyPile;
-		piles.push_back(new CardPile(emptyPile));
-	}
+Section::Section() {
+	//for (int i = 0; i < count; i++){
+	//	std::vector<Card*> emptyPile;
+	//	piles.push_back(new CardPile(emptyPile));
+	//}
 }
 
 Section::~Section(){
@@ -16,6 +16,11 @@ Section::~Section(){
 		delete[] pile;
 	}
 }
+
+void Section::AddPile(CardPile* pile){
+	piles.push_back(pile);
+}
+
 
 int Section::Count(){
 	return piles.size();
