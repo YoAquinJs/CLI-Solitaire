@@ -1,6 +1,8 @@
 #include <vector>
 #include "cardPile.hpp"
 
+CardPile::CardPile(std::vector<Card*> cards) : cards(cards) {}
+
 void CardPile::AddCard(Card* card){
 	cards.insert(cards.begin(), card);
 }
@@ -8,8 +10,6 @@ void CardPile::AddCard(Card* card){
 bool CardPile::CanAddCard(Card* card){
 	return true;
 }
-
-CardPile::CardPile(std::vector<Card*> cards) : cards(cards) {}
 
 int CardPile::Count(){
 	return cards.size();

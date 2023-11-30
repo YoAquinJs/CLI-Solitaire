@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "cardPile.hpp"
 
 class CardColumn : public CardPile {
@@ -7,6 +8,6 @@ class CardColumn : public CardPile {
 		bool CanAddCard(Card* card) override;
 		
 	public:
-		using CardPile::CardPile;
+		CardColumn(std::vector<Card*> cards);
 		bool MoveSubColumn(int index, CardColumn* destination);
 };

@@ -14,6 +14,6 @@ class CardPile{
 
 		int Count();
 		bool TryAddCard(Card* card);
-		bool MoveCard(CardPile* destination);
 		Card* GetAt(unsigned int index);
+		virtual bool MoveCard(CardPile* destination);
 };

@@ -1,6 +1,6 @@
 #include "card.hpp"
 
-Card::Card(CardSuit suit, CardRank rank) : suit(suit), rank(rank) {}
+Card::Card(CardSuit suit, CardRank rank) : suit(suit), rank(rank), hidden(false) {}
 
 CardSuit Card::GetSuit(){
 	return suit;
