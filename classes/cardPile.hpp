@@ -5,13 +5,13 @@
 
 class CardPile{
 	protected:
-		std::vector<Card*> cards;
 		virtual void AddCard(Card* card);
-		virtual bool CanAddCard(Card* card);
 
 	public:
-		CardPile(std::vector<Card*> cards) : cards(cards) {}
+		std::vector<Card*> cards;
+		CardPile(std::vector<Card*> cards);
 
+		virtual bool CanAddCard(Card* card);
 		bool TryAddCard(Card* card);
 		void RemoveLast();
 		Card* GetIndex(unsigned int index);

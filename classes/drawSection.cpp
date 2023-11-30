@@ -1,8 +1,8 @@
-#pragma once
-
 #include <vector>
 #include <map>
+
 #include "section.hpp"
 
-class TableuSection : Section {
+class DrawSection : Section {
+	public:
 };

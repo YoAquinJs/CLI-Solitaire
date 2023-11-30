@@ -1,3 +1,5 @@
+#pragma once
+
 struct Direction{
 	public:
 		int x;

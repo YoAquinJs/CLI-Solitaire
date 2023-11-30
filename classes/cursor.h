@@ -1,4 +1,0 @@
-class Cursor{
-	public:
-
-};

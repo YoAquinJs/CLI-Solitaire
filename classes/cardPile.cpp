@@ -4,6 +4,7 @@
 void CardPile::AddCard(Card* card){
 	cards.insert(cards.begin(), card);
 }
+
 bool CardPile::CanAddCard(Card* card){
 	return true;
 }
@@ -22,6 +23,6 @@ void CardPile::RemoveLast(){
 	cards.erase(cards.begin());
 }
 
-Card* CardPile::GetLast(){
-	return cards.front();
+Card* CardPile::GetIndex(unsigned int index){
+	return cards.at(index);
 }
