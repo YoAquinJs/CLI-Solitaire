@@ -22,7 +22,7 @@ int main(){
 	//Deck
 	Deck deck;
 	deck.Shuffle();
-	
+
 	//Sections
 	Section drawSection;
 	drawSection.AddPile(new DrawPile(deck.GetRange(drawDeck)));
@@ -37,6 +37,11 @@ int main(){
 	for (int i = 1; i <= tablueColumns; i++){
 		tableuSection.AddPile(new Column(deck.GetRange(i)));
 	}
+
+	//Section links
+	drawSection.LinkSurroundingSection(Direction(1,0), &foundationSection);
+	tableuSection.LinkSurroundingSection(Direction(0,1), &tableuSection);
+	tableuSection.LinkSurroundingSection(Direction(0,1), &tableuSection);
 
 	return 0;
 }
