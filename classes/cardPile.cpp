@@ -37,5 +37,7 @@ bool CardPile::MoveCard(CardPile* destination){
 }
 
 Card* CardPile::GetAt(unsigned int index){
+	if (index >= Count())
+		return nullptr;
 	return cards->at(index);
 }

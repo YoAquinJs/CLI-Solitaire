@@ -1,4 +1,7 @@
+#pragma once
+
 #include <iostream>
+#include "../classes/card.hpp"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"

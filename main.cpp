@@ -15,8 +15,8 @@
 //g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 //g++-17 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 int main(){
-	const int tablueColumns = 7;
-	const int drawDeck = 52-(tablueColumns*(tablueColumns+1)/2);
+	const int tableuColumns = 7;
+	const int drawDeck = 52-(tableuColumns*(tableuColumns+1)/2);
 
 	//Deck
 	Deck deck;
@@ -33,7 +33,7 @@ int main(){
 		game->foundationSection.AddPile(new Foundation());
 	}
 
-	for (int i = 1; i <= tablueColumns; i++){
+	for (int i = 1; i <= tableuColumns; i++){
 		game->tableuSection.AddPile(new Column(deck.GetRange(i)));
 	}
 
