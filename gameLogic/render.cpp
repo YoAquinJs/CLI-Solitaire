@@ -6,19 +6,19 @@
 #include "gameLogic.hpp"
 #include "utils.hpp"
 
-wchar_t SuitToChar(CardSuit suit){
+char SuitToChar(CardSuit suit){
 	switch (suit){
 	case CardSuit::CLUBS:
-		return L'\u2663';
+		return '\u2663';
 		break;
 	case CardSuit::HEARTS:
-		return L'\u2665';
+		return '\u2665';
 		break;
 	case CardSuit::DIAMONDS:
-		return L'\u2666';
+		return '\u2666';
 		break;
 	case CardSuit::SPADES:
-		return L'\u2660';
+		return '\u2660';
 		break;
 	default:
 		return '\n';
@@ -48,23 +48,28 @@ void Render(Game* game){
 			Card* card = game->renderMatrix[i][j];
 			if (card != nullptr){
 				oneNotNull = true;
-				topLine += " ___ ";
 
 				if (card->hidden){
 					line += "|▒▒▒|";
+					topLine += " ___ ";
 					continue;
 				}
 
 				CardSuit suit = card->GetSuit();
 				int rank = magic_enum::enum_integer<CardRank>(card->GetRank());
-				if (suit == CardSuit::HEARTS || suit == CardSuit::DIAMONDS)
+				if (suit == CardSuit::HEARTS || suit == CardSuit::DIAMONDS){
 					line+=RED;
+					topLine+=RED;
+				}
+				topLine += " ___ ";
 				line += "|";
 				line += SuitToChar(suit);
 				line += rank < 10 ? ' ' : '1';
 				line += rank < 10 ? ('0'+rank) : '0';
 				line += "|";
+
 				line+=RESET;
+				topLine+=RESET;
 				continue;
 			}
 			line += "     ";
