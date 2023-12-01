@@ -34,3 +34,7 @@ bool CardPile::MoveCard(CardPile* destination){
 Card* CardPile::GetAt(unsigned int index){
 	return cards.at(index);
 }
+
+void CardPile::Render(){
+	
+}

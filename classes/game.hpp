@@ -1,3 +1,5 @@
+#pragma once
+
 #include "section.hpp"
 
 enum class GameState { START, ONGAME, WON, LOSS };
@@ -7,7 +9,7 @@ struct Game{
 	Section* foundationSection;
 	Section* tableuSection;
 
-	Game() : state(GameState::START), drawSection(), foundationSection(), tableuSection() {}
+	Game();
 	
 	private:
 		GameState state;

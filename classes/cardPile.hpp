@@ -16,4 +16,5 @@ class CardPile{
 		bool TryAddCard(Card* card);
 		Card* GetAt(unsigned int index);
 		virtual bool MoveCard(CardPile* destination);
+		void Render();
 };

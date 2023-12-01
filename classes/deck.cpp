@@ -1,34 +1,41 @@
 #include <time.h>
-
+#include <random>
+#include <iostream>
+#include "../magic_enum/magic_enum.hpp"
+#include "../magic_enum/magic_enum_utility.hpp"
 #include "deck.hpp"
 
-void Deck::swap (Card *a, Card *b) { 
-    Card temp = *a; 
-    *a = *b; 
-    *b = temp; 
-} 
+void Deck::swap (Card *a, Card *b) {
+    Card temp = *a;
+    *a = *b;
+    *b = temp;
+}
 
 Deck::Deck() : fetchedCards(0) {
-	int suitSize = static_cast<int>(CardSuit::CLUBS)+1;
-	int rankSize = static_cast<int>(CardRank::KING)+1;
+	int suitSize = magic_enum::enum_count<CardSuit>();
+	int rankSize = magic_enum::enum_count<CardRank>();
 	deckSize = suitSize*rankSize;
 	cards = new Card*[deckSize];
+	
+	int i = 0;
+	magic_enum::enum_for_each<CardSuit>([&i, this] (auto val) mutable {
+  		constexpr CardSuit suit = val;
 
-	for (int i = 0; i <= suitSize; ++i) {
-	    CardSuit suit = static_cast<CardSuit>(i);
-		for (int j = 0; j <= rankSize; ++j) {
-	 	   	CardRank rank = static_cast<CardRank>(i);
-			cards[(i*rankSize)+j] = new Card(suit, rank);
-		}
-	}
+		magic_enum::enum_for_each<CardRank>([&i, this] (auto val) mutable {
+  			constexpr CardRank rank = val;
+
+			cards[i] = new Card(suit, rank);
+			i++;
+		});
+	});
 }
 
 // Using Fisher–Yates algorithm
 void Deck::Shuffle(){
 	srand (time(NULL));
-	for (int i = deckSize - 1; i > 0; i--) { 
-	    int j = rand() % (i + 1); 
-	    swap(cards[i], cards[j]); 
+	for (int i = deckSize - 1; i > 0; i--) {
+	    int j = rand() % (i + 1);
+	    swap(cards[i], cards[j]);
 	} 
 }
 
@@ -40,6 +47,7 @@ std::vector<Card*> Deck::GetRange(int count){
 	}
 
 	fetchedCards += count;
+
 	return pileStack;
 }
 

@@ -13,7 +13,9 @@ Section::~Section(){
 }
 
 void Section::AddPile(CardPile* pile){
-	piles.push_back(pile);
+	std::cout << "work2" << std::endl;
+ 	piles.push_back(pile);
+	std::cout << "work3" << std::endl;
 }
 
 
