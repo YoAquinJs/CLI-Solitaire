@@ -2,15 +2,14 @@
 
 #include "section.hpp"
 
-enum class GameState { START, ONGAME, WON, LOSS };
+enum class GameState { START, ONGAME, WON };
 
 struct Game{
+	GameState state;
+	
 	Section drawSection;
 	Section foundationSection;
 	Section tableuSection;
 
 	Game();
-	
-	private:
-		GameState state;
 };

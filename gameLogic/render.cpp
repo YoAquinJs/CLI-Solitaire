@@ -1,19 +1,24 @@
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 #include "gameLogic.hpp"
+#include "utils.hpp"
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
+void Render(Game* game){
+	#ifdef _WIN32 // For Windows systems
+        system("cls");
+    #else // For Unix-based systems
+        system("clear");
+    #endif
 
-void ColorPrint(std::string text, std::string color){
-	std::cout << color << text << RESET << "\n";
-}
-
-void Render(Game* gameObj){
 	ColorPrint("--------------------------Solitarie--------------------------", GREEN);
-	std::cout << " Press Space to Start\n";
+	if (game->state == GameState::START)
+		return;
+
+	PrintLine("");
+
+	PrintLine("rendering....");
+
+	PrintLine("");
 }

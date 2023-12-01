@@ -12,7 +12,8 @@
 #include "gameLogic/gameLogic.hpp"
 
 //Run
-//g++ main.cpp gameLogic/*.cpp classes/*.cpp -o main && ./main
+//g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+//g++-17 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 int main(){
 	const int tablueColumns = 7;
 	const int drawDeck = 52-(tablueColumns*(tablueColumns+1)/2);
@@ -42,10 +43,10 @@ int main(){
 	game->tableuSection.LinkSurroundingSection(Direction(0,1), &game->tableuSection);
 
 	//Game Loop
-	Render(game);
-	Update(game);
 	bool inGame = true;
 	while (inGame){
+		Render(game);
+		Update(game);
 	}
 
 	return 0;
