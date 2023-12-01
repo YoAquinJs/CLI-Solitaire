@@ -7,14 +7,12 @@ Section::Section() : piles(std::vector<CardPile*>()), surroundingSections(std::m
 
 Section::~Section(){
 	for (CardPile* pile : piles){
-		delete[] pile;
+		delete pile;
 	}
 }
 
 void Section::AddPile(CardPile* pile){
-	std::cout << "work2" << std::endl;
  	piles.push_back(pile);
-	std::cout << "work3" << std::endl;
 }
 
 
@@ -24,7 +22,6 @@ int Section::Count(){
 
 void Section::LinkSurroundingSection(Direction direction, Section* surroundingSection){
 	if(surroundingSections.find(direction) != surroundingSections.end()){
-		std::cout << "Direction X: " << direction.x << " Y: " <<direction.y << " Already existed\n";
 		return;
 	}
 

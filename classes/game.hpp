@@ -5,9 +5,9 @@
 enum class GameState { START, ONGAME, WON, LOSS };
 
 struct Game{
-	Section* drawSection;
-	Section* foundationSection;
-	Section* tableuSection;
+	Section drawSection;
+	Section foundationSection;
+	Section tableuSection;
 
 	Game();
 	
