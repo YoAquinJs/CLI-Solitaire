@@ -9,21 +9,34 @@
 char SuitToChar(CardSuit suit){
 	switch (suit){
 	case CardSuit::CLUBS:
-		return '\u2663';
+		return 'C';
 		break;
 	case CardSuit::HEARTS:
-		return '\u2665';
+		return 'H';
 		break;
 	case CardSuit::DIAMONDS:
-		return '\u2666';
+		return 'D';
 		break;
 	case CardSuit::SPADES:
-		return '\u2660';
+		return 'S';
 		break;
 	default:
 		return '\n';
 		break;
 	}
+}
+
+std::string CardPrint(Card* card){
+	std::string print = "";
+	int rank = magic_enum::enum_integer<CardRank>(card->GetRank());
+
+	print += "|";
+	print += SuitToChar(card->GetSuit());
+	print += rank < 10 ? ' ' : '1';
+	print += rank < 10 ? ('0'+rank) : '0';
+	print += "|";
+
+	return print;
 }
 
 void Render(Game* game){
@@ -33,7 +46,7 @@ void Render(Game* game){
         system("clear");
     #endif
 
-	ColorPrint("--------------------------Solitarie--------------------------", GREEN);
+	ColorPrint("-------------Solitarie-------------", GREEN);
 	if (game->state == GameState::START)
 		return;
 
@@ -49,31 +62,33 @@ void Render(Game* game){
 			if (card != nullptr){
 				oneNotNull = true;
 
-				if (card->hidden){
-					line += "|▒▒▒|";
-					topLine += " ___ ";
-					continue;
-				}
-
-				CardSuit suit = card->GetSuit();
-				int rank = magic_enum::enum_integer<CardRank>(card->GetRank());
-				if (suit == CardSuit::HEARTS || suit == CardSuit::DIAMONDS){
+				if (!card->hidden &&(card->GetSuit() == CardSuit::HEARTS || card->GetSuit() == CardSuit::DIAMONDS)){
 					line+=RED;
 					topLine+=RED;
 				}
-				topLine += " ___ ";
-				line += "|";
-				line += SuitToChar(suit);
-				line += rank < 10 ? ' ' : '1';
-				line += rank < 10 ? ('0'+rank) : '0';
-				line += "|";
 
-				line+=RESET;
-				topLine+=RESET;
-				continue;
+				if (game->cursor1->GetCard() == card){
+					topLine+=BLUE;
+				}if (game->cursor1->locked && game->cursor2->GetCard() == card){
+					topLine+=YELLOW;
+				}
+
+				topLine += " ___ ";
+				if (card->hidden)
+					line += "|###|";
+				else
+					line += CardPrint(card);
+				
+			}else if ((j==0 && i!=2) || j==1){
+				topLine += " ___ ";
+				line    += "|___|";
+			}else{
+				topLine += "     ";
+				line += "     ";
 			}
-			line += "     ";
-			topLine += "     ";
+
+			line+=RESET;
+			topLine+=RESET;
 		}
 		if (!oneNotNull)
 			break;
@@ -82,5 +97,5 @@ void Render(Game* game){
 		PrintLine(line);
 	}
 
-	PrintLine("");
+	PrintLine("\n");
 }

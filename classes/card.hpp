@@ -9,7 +9,7 @@ class Card{
 
 	public:
 		bool hidden;
-		
+
 		Card(CardSuit suit, CardRank rank);
 
 		CardSuit GetSuit();

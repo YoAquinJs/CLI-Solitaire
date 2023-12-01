@@ -11,8 +11,9 @@ class Cursor{
 	
 	public:
 		bool locked;
+		int index;
 
-		Cursor(Section* section);
+		Cursor(Section* section, int index);
 		
 		CardPile* GetPile();
 		Card* GetCard();

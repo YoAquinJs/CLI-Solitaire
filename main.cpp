@@ -39,8 +39,11 @@ int main(){
 
 	//Section links
 	game->drawSection.LinkSurroundingSection(Direction(1,0), &game->foundationSection);
-	game->tableuSection.LinkSurroundingSection(Direction(0,1), &game->tableuSection);
-	game->tableuSection.LinkSurroundingSection(Direction(0,1), &game->tableuSection);
+	game->foundationSection.LinkSurroundingSection(Direction(-1,0), &game->drawSection);
+
+	game->tableuSection.LinkSurroundingSection(Direction(0,1), &game->drawSection);
+	game->foundationSection.LinkSurroundingSection(Direction(0,-1), &game->tableuSection);
+	game->drawSection.LinkSurroundingSection(Direction(0,-1), &game->tableuSection);
 
 	//Game Loop
 	bool inGame = true;

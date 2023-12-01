@@ -21,14 +21,12 @@ int Section::Count(){
 }
 
 void Section::LinkSurroundingSection(Direction direction, Section* surroundingSection){
-	if(surroundingSections.find(direction) != surroundingSections.end()){
+	if (surroundingSections.find(direction) != surroundingSections.end()){
+		std::cout << "Surrounding section " << surroundingSection->Count() << " already defined for that direction " << direction.x << " " << direction.y << std::endl;
 		return;
 	}
 
 	surroundingSections.insert({direction, surroundingSection});
-	direction.x *= -1;
-	direction.y *= -1;
-	surroundingSection->surroundingSections.insert({direction, this});
 }
 
 Section* Section::GetSurroundingSection(Direction direction){
