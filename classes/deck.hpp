@@ -4,17 +4,16 @@
 #include "cardPile.hpp"
 
 class Deck{
-	private:
-		int deckSize;
-		int fetchedCards;
-		Card** cards;
+	int deckSize;
+	int fetchedCards;
+	Card** cards;
 
-		void swap (Card *a, Card *b);
+	void swap (Card *a, Card *b);
 
 	public:
 		Deck();
 		~Deck();
 
 		void Shuffle();
-		std::vector<Card*> GetRange(int fetchedCards);
+		std::vector<Card*>* GetRange(int fetchedCards);
 };

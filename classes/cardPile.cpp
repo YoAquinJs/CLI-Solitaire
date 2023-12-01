@@ -1,10 +1,14 @@
 #include <vector>
 #include "cardPile.hpp"
 
-CardPile::CardPile(std::vector<Card*> cards) : cards(cards) {}
+CardPile::CardPile(std::vector<Card*>* initialCards) : cards(initialCards) {}
+
+CardPile::~CardPile(){
+	delete cards;
+}
 
 void CardPile::AddCard(Card* card){
-	cards.insert(cards.begin(), card);
+	cards->insert(cards->begin(), card);
 }
 
 bool CardPile::CanAddCard(Card* card){
@@ -12,7 +16,7 @@ bool CardPile::CanAddCard(Card* card){
 }
 
 int CardPile::Count(){
-	return cards.size();
+	return cards->size();
 }
 
 bool CardPile::TryAddCard(Card* card){
@@ -27,14 +31,11 @@ bool CardPile::MoveCard(CardPile* destination){
 	if (!(destination->TryAddCard(GetAt(0)))){
 		return false;
 	}
-	cards.erase(cards.begin());
+
+	cards->erase(cards->begin());
 	return true;
 }
 
 Card* CardPile::GetAt(unsigned int index){
-	return cards.at(index);
-}
-
-void CardPile::Render(){
-	
+	return cards->at(index);
 }

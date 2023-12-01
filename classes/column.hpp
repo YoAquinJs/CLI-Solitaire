@@ -4,10 +4,10 @@
 #include "cardPile.hpp"
 
 class Column : public CardPile {
-	private:
-		bool CanAddCard(Card* card) override;
+	bool CanAddCard(Card* card) override;
 		
 	public:
-		Column(std::vector<Card*> cards);
+		Column(std::vector<Card*>* initialCards);
+		
 		bool MoveSubColumn(int index, Column* destination);
 };

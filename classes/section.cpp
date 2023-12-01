@@ -6,7 +6,6 @@
 Section::Section() : piles(std::vector<CardPile*>()), surroundingSections(std::map<Direction, Section*>()) {}
 
 Section::~Section(){
-	//Free used memory
 	for (CardPile* pile : piles){
 		delete[] pile;
 	}

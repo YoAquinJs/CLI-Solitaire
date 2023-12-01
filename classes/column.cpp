@@ -2,8 +2,8 @@
 #include "column.hpp"
 #include "../magic_enum/magic_enum.hpp"
 
-Column::Column(std::vector<Card*> cards) : CardPile(cards) {
-	for (int i = 1; i < this->cards.size(); i++) {
+Column::Column(std::vector<Card*>* initialCards) : CardPile(initialCards) {
+	for (int i = 1; i < cards->size(); i++) {
 		GetAt(i)->hidden = true;
     }
 	GetAt(0)->hidden = false;
@@ -22,7 +22,7 @@ bool Column::MoveSubColumn(int index, Column* destination){
 
     for (int i = index; i > -1; i--){
 		destination->AddCard(GetAt(i));
-		cards.erase(cards.begin() + i);
+		cards->erase(cards->begin() + i);
 	}
 
 	return true;

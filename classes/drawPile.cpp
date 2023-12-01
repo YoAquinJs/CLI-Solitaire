@@ -3,12 +3,13 @@
 #include <algorithm>
 #include "drawPile.hpp"
 
-DrawPile::DrawPile(std::vector<Card*> cards) : CardPile(cards){
-	std::reverse(this->cards.begin(), this->cards.end());
+DrawPile::DrawPile(std::vector<Card*>* initialCards) : CardPile(initialCards){
+	std::reverse(cards->begin(), cards->end());
 
-	for (Card* card : this->cards){
+	for (Card* card : *cards){
 		card->hidden = true;
 	}
+	GetAt(0)->hidden = false;
 }
 
 bool DrawPile::CanAddCard(Card* card){
@@ -20,6 +21,6 @@ bool DrawPile::MoveCard(CardPile* destination){
 		return false;
 	}
 	GetAt(0)->hidden = false;
-	cards.erase(cards.begin());
+	cards->erase(cards->begin());
 	return true;
 }

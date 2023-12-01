@@ -4,8 +4,8 @@
 #include "cardPile.hpp"
 
 class Foundation : public CardPile {
-	private:
-		bool CanAddCard(Card* card) override;
+	bool CanAddCard(Card* card) override;
+	
 	public:
 		Foundation();
 };

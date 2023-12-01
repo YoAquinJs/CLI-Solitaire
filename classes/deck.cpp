@@ -5,7 +5,7 @@
 #include "../magic_enum/magic_enum_utility.hpp"
 #include "deck.hpp"
 
-void Deck::swap (Card *a, Card *b) {
+void Deck::swap (Card* a, Card* b) {
     Card temp = *a;
     *a = *b;
     *b = temp;
@@ -39,11 +39,11 @@ void Deck::Shuffle(){
 	} 
 }
 
-std::vector<Card*> Deck::GetRange(int count){
-	std::vector<Card*> pileStack;
+std::vector<Card*>* Deck::GetRange(int count){
+	std::vector<Card*>* pileStack = new std::vector<Card*>();
 
 	for (int i = fetchedCards; i < fetchedCards+count; i++) {
-		pileStack.push_back(cards[i]);
+		pileStack->push_back(cards[i]);
 	}
 
 	fetchedCards += count;
@@ -52,9 +52,8 @@ std::vector<Card*> Deck::GetRange(int count){
 }
 
 Deck::~Deck(){
-	// Free allocated memory
 	for (int i = 0; i < deckSize; ++i) {
-		delete[] cards[i];
+		delete cards[i];
 	}
 	delete[] cards;
 }

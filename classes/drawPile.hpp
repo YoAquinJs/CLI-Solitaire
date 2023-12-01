@@ -4,10 +4,10 @@
 #include "cardPile.hpp"
 
 class DrawPile : public CardPile {
-	private:
-		bool CanAddCard(Card* card) override;
+	bool CanAddCard(Card* card) override;
+	
 	public:
-		DrawPile(std::vector<Card*> cards);
+		DrawPile(std::vector<Card*>* initialCards);
+		
 		bool MoveCard(CardPile* destination) override;
-
 };

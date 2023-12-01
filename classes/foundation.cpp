@@ -1,7 +1,7 @@
 #include <vector>
 #include "foundation.hpp"
 
-Foundation::Foundation() : CardPile(std::vector<Card*>()) {}
+Foundation::Foundation() : CardPile(new std::vector<Card*>()) {}
 
 bool Foundation::CanAddCard(Card* card){
 	if (Count() == 0)
