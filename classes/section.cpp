@@ -3,12 +3,7 @@
 #include "cardPile.hpp"
 #include "section.hpp"
 
-Section::Section() {
-	//for (int i = 0; i < count; i++){
-	//	std::vector<Card*> emptyPile;
-	//	piles.push_back(new CardPile(emptyPile));
-	//}
-}
+Section::Section() : piles(std::vector<CardPile*>()), surroundingSections(std::map<Direction, Section*>()) {}
 
 Section::~Section(){
 	//Free used memory

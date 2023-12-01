@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <Windows.h>
 
 #include "classes/deck.hpp"
 #include "classes/section.hpp"
@@ -9,11 +10,12 @@
 #include "classes/drawPile.hpp"
 #include "classes/foundation.hpp"
 #include "magic_enum/magic_enum.hpp"
+#include "classes/game.hpp"
+#include "gameLogic.hpp"
 
 //Run
 //g++ *.cpp classes/*.cpp -o main && ./main
 int main(){
-	std::cout << "--------------------------Solitarie--------------------------\n";
 	std::cout << std::boolalpha;
 
 	int const tablueColumns = 7;
@@ -23,25 +25,32 @@ int main(){
 	Deck deck;
 	deck.Shuffle();
 
-	//Sections
-	Section drawSection;
-	drawSection.AddPile(new DrawPile(deck.GetRange(drawDeck)));
-	drawSection.AddPile(new CardPile(std::vector<Card*>()));
+	//Game Object
+	Game game;
 
-	Section foundationSection;
+	//Sections
+	game.drawSection->AddPile(new DrawPile(deck.GetRange(drawDeck)));
+	game.drawSection->AddPile(new CardPile(std::vector<Card*>()));
+
 	for (int i = 0; i < magic_enum::enum_count<CardSuit>(); i++){
-		foundationSection.AddPile(new Foundation());
+		game.foundationSection->AddPile(new Foundation());
 	}
 
-	Section tableuSection;
 	for (int i = 1; i <= tablueColumns; i++){
-		tableuSection.AddPile(new Column(deck.GetRange(i)));
+		game.tableuSection->AddPile(new Column(deck.GetRange(i)));
 	}
 
 	//Section links
-	drawSection.LinkSurroundingSection(Direction(1,0), &foundationSection);
-	tableuSection.LinkSurroundingSection(Direction(0,1), &tableuSection);
-	tableuSection.LinkSurroundingSection(Direction(0,1), &tableuSection);
+	game.drawSection->LinkSurroundingSection(Direction(1,0), game.foundationSection);
+	game.tableuSection->LinkSurroundingSection(Direction(0,1), game.tableuSection);
+	game.tableuSection->LinkSurroundingSection(Direction(0,1), game.tableuSection);
+
+	//Game Loop
+	bool inGame = true;
+	while (inGame){
+		Update(&game);
+		Render(&game);
+	}
 
 	return 0;
 }
