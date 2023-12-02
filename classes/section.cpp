@@ -37,5 +37,7 @@ Section* Section::GetSurroundingSection(Direction direction){
 }
 
 CardPile* Section::GetAt(int index){
+	if (index >= Count() || index < 0)
+		return nullptr;
 	return piles.at(index);
 }

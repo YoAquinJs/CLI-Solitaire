@@ -11,10 +11,10 @@ class Cursor{
 	
 	public:
 		bool locked;
-		int index;
 
-		Cursor(Section* section, int index);
+		Cursor(Section* section);
 		
+		Section* GetSection();
 		CardPile* GetPile();
 		Card* GetCard();
 		void Move(Direction direction);

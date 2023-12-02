@@ -59,6 +59,7 @@ void Render(Game* game){
 
 		for (int i = 0; i < 7; i++){
 			Card* card = game->renderMatrix[i][j];
+
 			if (card != nullptr){
 				oneNotNull = true;
 
@@ -67,12 +68,11 @@ void Render(Game* game){
 					topLine+=RED;
 				}
 
-				if (game->cursor1->GetCard() == card){
+				if (game->cursor1->GetCard() == card)
 					topLine+=BLUE;
-				}if (game->cursor1->locked && game->cursor2->GetCard() == card){
+				if (game->cursor2->GetCard() == card && game->cursor1->locked)
 					topLine+=YELLOW;
-				}
-
+				
 				topLine += " ___ ";
 				if (card->hidden)
 					line += "|###|";
@@ -80,6 +80,18 @@ void Render(Game* game){
 					line += CardPrint(card);
 				
 			}else if ((j==0 && i!=2) || j==1){
+				if ((j==0 && game->cursor1->GetSection() == &(game->drawSection) && game->cursor1->GetPile() == game->drawSection.GetAt(i)) ||
+					(j==0 && game->cursor1->GetSection() == &(game->foundationSection) && game->cursor1->GetPile() == game->foundationSection.GetAt(i-3)) ||
+					(j==1 && game->cursor1->GetSection() == &(game->tableuSection) && game->cursor1->GetPile() == game->tableuSection.GetAt(i)))
+						topLine+=BLUE;
+
+				if (game->cursor1->locked){
+					if ((j==0 && game->cursor2->GetSection() == &(game->drawSection) && game->cursor2->GetPile() == game->drawSection.GetAt(i)) ||
+						(j==0 && game->cursor2->GetSection() == &(game->foundationSection) && game->cursor2->GetPile() == game->foundationSection.GetAt(i-3)) ||
+						(j==1 && game->cursor2->GetSection() == &(game->tableuSection) && game->cursor2->GetPile() == game->tableuSection.GetAt(i)))
+							topLine+=YELLOW;
+				}
+
 				topLine += " ___ ";
 				line    += "|___|";
 			}else{

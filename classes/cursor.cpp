@@ -2,33 +2,46 @@
 #include "cursor.hpp"
 #include "column.hpp"
 
-Cursor::Cursor(Section* section, int index) : section(section), cardIndex(0), pileIndex(0), index(index) {}
+Cursor::Cursor(Section* section) : section(section), cardIndex(0), pileIndex(0) {}
 
 void Cursor::Move(Direction direction){
 	int newCard = cardIndex + direction.y;
 	int newPile = pileIndex + direction.x;
-	Section* nextSection;
-
-	//If either index overflow
+	
+	bool offLimitCard = false;
 	if (Column* column = dynamic_cast<Column*>(GetPile())){
-		if(newCard < 0 || newCard == GetPile()->Count() || newPile < 0 || newPile == section->Count()){
-			nextSection = section->GetSurroundingSection(direction);
-		}
-	}else if (newCard != cardIndex || newPile < 0 || newPile == section->Count()){
+		if(newCard < 0 || newCard == column->Count())
+			offLimitCard = true;
+	}else if (newCard != cardIndex)
+		offLimitCard = true;
+
+	bool offLimitPile = newPile < 0 || newPile == section->Count();
+	
+	Section* nextSection = nullptr;
+	if(offLimitCard){
 		nextSection = section->GetSurroundingSection(direction);
+		newCard = cardIndex;
 	}
+	if(offLimitPile){
+		nextSection = section->GetSurroundingSection(direction);
+		newPile = pileIndex;
+	}
+
+	if (newPile != pileIndex)
+		newCard = 0;
 
 	if (nextSection != nullptr){
 		newCard = 0;
 		newPile = 0;
 		section = nextSection;
-	}else{
-		newCard = cardIndex;
-		newPile = pileIndex;
 	}
 
-	cardIndex = newCard;
 	pileIndex = newPile;
+	cardIndex = newCard;
+}
+
+Section* Cursor::GetSection(){
+	return section;
 }
 
 CardPile* Cursor::GetPile(){
