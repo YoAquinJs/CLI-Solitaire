@@ -5,7 +5,10 @@
 
 DrawPile::DrawPile(std::vector<Card*>* initialCards) : CardPile(initialCards){
 	std::reverse(cards->begin(), cards->end());
+	InitPile();
+}
 
+void DrawPile::InitPile(){
 	for (Card* card : *cards){
 		card->hidden = true;
 	}
@@ -17,7 +20,7 @@ bool DrawPile::CanAddCard(Card* card){
 }
 
 bool DrawPile::MoveCard(CardPile* destination){
-	if (!(destination->TryAddCard(GetAt(0)))){
+	if (Count() == 0 || !(destination->TryAddCard(GetAt(0)))){
 		return false;
 	}
 	GetAt(0)->hidden = false;

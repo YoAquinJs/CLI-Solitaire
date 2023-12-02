@@ -14,8 +14,9 @@ class Cursor{
 
 		Cursor(Section* section);
 		
-		Section* GetSection();
-		CardPile* GetPile();
+		int GetIndex();
 		Card* GetCard();
+		CardPile* GetPile();
+		Section* GetSection();
 		void Move(Direction direction);
 };

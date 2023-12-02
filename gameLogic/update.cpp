@@ -4,6 +4,7 @@
 #include <cstdlib>
 
 #include "../classes/foundation.hpp"
+#include "../classes/drawPile.hpp"
 #include "../classes/column.hpp"
 #include "gameLogic.hpp"
 #include "utils.hpp"
@@ -46,75 +47,131 @@ void Update(Game* game){
 			FillRenderMatrix(game);
 		break;
 	case GameState::ONGAME:
-		{
-			PrintLine("Cursor Directions (W) up | (S) down | (A) left | (D) rigth)");
-			PrintLine("L to lock a position | K to unlock a position");
-			PrintLine("J to try to perform a movement");
-			ColorPrint("  Press a Key ", BLUE);
+	{
+		PrintLine("Cursor Directions (W) up | (S) down | (A) left | (D) rigth)");
+		PrintLine("L to lock a position | K to unlock a position");
+		PrintLine("J to try to perform a movement");
+		ColorPrint("  Press a Key ", BLUE);
+		std::string rawInput;
+		std::cin >> rawInput;
 
-			std::string rawInput;
-			std::cin >> rawInput;
-			if (rawInput.size() != 1)
-				return;
+		if (rawInput.size() != 1)
+			return;
+		char input = std::tolower(rawInput[0]);
 
-			char input = std::tolower(rawInput[0]);
+		switch (input){
+		case 'w':
+			if (game->cursor1->locked){
+				game->cursor2->Move(Direction(0,1));
+				break;
+			}
+			game->cursor1->Move(Direction(0,1));
+			break;
 
-			switch (input){
-			case 'w':
-				if (game->cursor1->locked){
-					game->cursor2->Move(Direction(0,1));
-					break;
-				}
-				game->cursor1->Move(Direction(0,1));
+		case 's':
+			if (game->cursor1->locked){
+				game->cursor2->Move(Direction(0,-1));
 				break;
-			case 's':
-				if (game->cursor1->locked){
-					game->cursor2->Move(Direction(0,-1));
-					break;
-				}
-				game->cursor1->Move(Direction(0,-1));
+			}
+			game->cursor1->Move(Direction(0,-1));
+			break;
+
+		case 'a':
+			if (game->cursor1->locked){
+				game->cursor2->Move(Direction(-1,0));
 				break;
-			case 'a':
-				if (game->cursor1->locked){
-					game->cursor2->Move(Direction(-1,0));
-					break;
-				}
-				game->cursor1->Move(Direction(-1,0));
+			}
+			game->cursor1->Move(Direction(-1,0));
+			break;
+
+		case 'd':
+			if (game->cursor1->locked){
+				game->cursor2->Move(Direction(1,0));
 				break;
-			case 'd':
-				if (game->cursor1->locked){
-					game->cursor2->Move(Direction(1,0));
-					break;
-				}
-				game->cursor1->Move(Direction(1,0));
-				break;
-			case 'l':
-				if (game->cursor1->locked){
-					ColorPrint("Invalid Action, cannot lock both cursors", RED);
-					return;
-				}
-				game->cursor1->locked=true;
-				break;
-			case 'k':
-				if (!game->cursor1->locked){
-					ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
-					return;
-				}
-				game->cursor1->locked=false;
-				break;
-			case 'j':
-				if (!game->cursor1->locked){
-					ColorPrint("Invalid Action, cursor 1 must be locked to perform action", RED);
-					return;
-				}
-					
-			default:
-				ColorPrint("Invalid Input: " + input, RED);
+			}
+			game->cursor1->Move(Direction(1,0));
+			break;
+
+		case 'l':
+			if (game->cursor1->locked){
+				ColorPrint("Invalid Action, cannot lock both cursors", RED);
 				return;
 			}
+			game->cursor1->locked=true;
+			break;
 
-			FillRenderMatrix(game);
-		}break;
+		case 'k':
+			if (!game->cursor1->locked){
+				ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
+				return;
+			}
+			game->cursor1->locked=false;
+			break;
+
+		case 'j':
+			//Draw pile Interactions
+			if (!game->cursor1->locked){
+				if (!(game->cursor1->GetPile() == game->drawSection.GetAt(0)))
+					break;
+				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->cursor1->GetPile());
+				if (!drawPile->MoveCard(game->drawSection.GetAt(1))){
+					for (int i = 0; i < game->drawSection.GetAt(1)->Count(); i++){
+						game->drawSection.GetAt(1)->MoveCard(drawPile);
+					}
+					drawPile->InitPile();
+				}
+				break;
+			}
+			//Draw Pile-Column Iteraction
+			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->tableuSection){
+				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				break;
+			}
+			//Draw Pile-Foundation Iteraction
+			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->foundationSection){
+				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				break;
+			}
+			//Column-Column Interaction
+			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor1->GetSection() == &game->tableuSection){
+				Column* destination = dynamic_cast<Column*>(game->cursor2->GetPile());
+				dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), destination);
+				break;
+			}
+			//Foundation-Column Interaction
+			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor2->GetSection() == &game->foundationSection){
+				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				break;
+			}
+			if (game->cursor1->GetSection() == &game->foundationSection && game->cursor2->GetSection() == &game->tableuSection){
+				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				break;
+			}
+			break;
+				
+		default:
+			ColorPrint("Invalid Input: " + input, RED);
+			return;
+		}
+		
+		bool won = true;
+		for (int i = 0; i < game->foundationSection.Count(); i++){
+			if (game->foundationSection.GetAt(i)->Count() == 0){
+				won = false;
+				break;
+			}
+			if (!(game->foundationSection.GetAt(i)->GetAt(0)->GetRank() == CardRank::KING)){
+				won = false;
+				break;
+			}
+		}
+		if (won){
+			game->state = GameState::WON;
+			break;
+		}
+		
+		FillRenderMatrix(game);
+	}break;
 	case GameState::WON:
 			ColorPrint("YOU WON!!!", GREEN);
 			ColorPrint("PRESS ENTER TWICE TO CLOSE THE PROGRAM", GREEN);

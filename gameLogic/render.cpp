@@ -47,7 +47,7 @@ void Render(Game* game){
     #endif
 
 	ColorPrint("-------------Solitarie-------------", GREEN);
-	if (game->state == GameState::START)
+	if (game->state == GameState::START || game->state == GameState::WON)
 		return;
 
 	PrintLine("");

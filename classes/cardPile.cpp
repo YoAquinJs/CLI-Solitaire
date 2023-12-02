@@ -12,7 +12,7 @@ void CardPile::AddCard(Card* card){
 }
 
 bool CardPile::CanAddCard(Card* card){
-	return false;
+	return true;
 }
 
 int CardPile::Count(){

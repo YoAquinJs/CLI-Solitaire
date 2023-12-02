@@ -9,5 +9,6 @@ class DrawPile : public CardPile {
 	public:
 		DrawPile(std::vector<Card*>* initialCards);
 		
+		void InitPile();
 		bool MoveCard(CardPile* destination) override;
 };

@@ -2,7 +2,7 @@
 #include "cursor.hpp"
 #include "column.hpp"
 
-Cursor::Cursor(Section* section) : section(section), cardIndex(0), pileIndex(0) {}
+Cursor::Cursor(Section* section) : section(section), cardIndex(0), pileIndex(0), locked(false) {}
 
 void Cursor::Move(Direction direction){
 	int newCard = cardIndex + direction.y;
@@ -38,6 +38,10 @@ void Cursor::Move(Direction direction){
 
 	pileIndex = newPile;
 	cardIndex = newCard;
+}
+
+int Cursor::GetIndex(){
+	return cardIndex;	
 }
 
 Section* Cursor::GetSection(){

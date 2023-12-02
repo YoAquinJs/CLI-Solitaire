@@ -16,14 +16,14 @@ bool Column::CanAddCard(Card* card) {
 }
 
 bool Column::MoveSubColumn(int index, Column* destination){
-	if (!destination->CanAddCard(GetAt(index))){
+	if (GetAt(index)->hidden || !destination->CanAddCard(GetAt(index)))
 		return false;
-	}
 
     for (int i = index; i > -1; i--){
 		destination->AddCard(GetAt(i));
 		cards->erase(cards->begin() + i);
 	}
 
+	GetAt(0)->hidden = false;
 	return true;
 }
