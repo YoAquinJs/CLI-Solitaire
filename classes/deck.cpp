@@ -1,8 +1,8 @@
 #include <time.h>
 #include <random>
 #include <iostream>
+
 #include "../magic_enum/magic_enum.hpp"
-#include "../magic_enum/magic_enum_utility.hpp"
 #include "deck.hpp"
 
 void Deck::swap (Card* a, Card* b) {
@@ -17,17 +17,13 @@ Deck::Deck() : fetchedCards(0) {
 	deckSize = suitSize*rankSize;
 	cards = new Card*[deckSize];
 	
-	int i = 0;
-	magic_enum::enum_for_each<CardSuit>([&i, this] (auto val) mutable {
-  		constexpr CardSuit suit = val;
-
-		magic_enum::enum_for_each<CardRank>([&i, this] (auto val) mutable {
-  			constexpr CardRank rank = val;
-
-			cards[i] = new Card(suit, rank);
-			i++;
-		});
-	});
+	for (int i = 0; i < suitSize; i++){
+		CardSuit suit = static_cast<CardSuit>(i);
+		for (int j = 0; j < rankSize; j++){
+			CardRank rank = static_cast<CardRank>(j+1);
+			cards[(i*rankSize)+j] = new Card(suit, rank);
+		}
+	}
 }
 
 // Using Fisher–Yates algorithm

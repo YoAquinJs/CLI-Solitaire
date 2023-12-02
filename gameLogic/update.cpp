@@ -53,8 +53,9 @@ void Update(Game* game, int drawDeck){
 	case GameState::ONGAME:
 	{
 		PrintLine("Cursor Directions (W) up | (S) down | (A) left | (D) rigth)");
-		PrintLine("L to lock a position | K to unlock a position");
-		PrintLine("J to try to perform a movement");
+		PrintLine("L to lock the cursor in a position | K to unlock it");
+		PrintLine("The blue cursor is the origin and the yellow the destination");
+		PrintLine("J to perform a movement");
 		ColorPrint("  Press a Key ", BLUE);
 		std::string rawInput;
 		std::cin >> rawInput;
@@ -169,7 +170,7 @@ void Update(Game* game, int drawDeck){
 				won = false;
 				break;
 			}
-			if (!(game->foundationSection.GetAt(i)->GetAt(0)->GetRank() == CardRank::KING)){
+			if (game->foundationSection.GetAt(i)->GetAt(0)->GetRank() != CardRank::KING){
 				won = false;
 				break;
 			}
