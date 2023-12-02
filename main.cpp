@@ -11,10 +11,11 @@
 #include "classes/foundation.hpp"
 #include "gameLogic/gameLogic.hpp"
 
-//Run
-//valgrind --leak-check=full ./main
-//g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
-//g++-17 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+/*Run
+valgrind --leak-check=full ./main
+g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+*/
 int main(){
 	std::cout << std::boolalpha;
 	const int tableuColumns = 7;
