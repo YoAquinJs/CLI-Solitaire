@@ -28,9 +28,8 @@ bool CardPile::TryAddCard(Card* card){
 }
 
 bool CardPile::MoveCard(CardPile* destination){
-	if (!(destination->TryAddCard(GetAt(0)))){
+	if (!(destination->TryAddCard(GetAt(0))))
 		return false;
-	}
 
 	cards->erase(cards->begin());
 	return true;

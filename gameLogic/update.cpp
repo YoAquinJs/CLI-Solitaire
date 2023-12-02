@@ -9,6 +9,12 @@
 #include "gameLogic.hpp"
 #include "utils.hpp"
 
+void WaitForEnter(){
+	std::cin.clear();	
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.get();
+}
+
 void FillRenderMatrix(Game* game){
 	//Empty space between draw section and foundation section
 	game->renderMatrix[2][0] = nullptr;
@@ -32,16 +38,14 @@ void FillRenderMatrix(Game* game){
 	}
 }
 
-void Update(Game* game){
+void Update(Game* game, int drawDeck){
 	switch (game->state){
 	case GameState::START:
 			PrintLine("Card suits are expressed as their initial leter");
 			PrintLine("C clubs | H hearts | S spades | D diamonds");
 			ColorPrint("PRESS ENTER TWICE TO START", GREEN);
 
-    		std::cin.clear();
-    		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    		std::cin.get();
+    		WaitForEnter();
 
 			game->state = GameState::ONGAME;
 			FillRenderMatrix(game);
@@ -95,6 +99,7 @@ void Update(Game* game){
 		case 'l':
 			if (game->cursor1->locked){
 				ColorPrint("Invalid Action, cannot lock both cursors", RED);
+				WaitForEnter();
 				return;
 			}
 			game->cursor1->locked=true;
@@ -103,6 +108,7 @@ void Update(Game* game){
 		case 'k':
 			if (!game->cursor1->locked){
 				ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
+	    		WaitForEnter();
 				return;
 			}
 			game->cursor1->locked=false;
@@ -113,10 +119,12 @@ void Update(Game* game){
 			if (!game->cursor1->locked){
 				if (!(game->cursor1->GetPile() == game->drawSection.GetAt(0)))
 					break;
-				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->cursor1->GetPile());
+
+				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->drawSection.GetAt(0));
 				if (!drawPile->MoveCard(game->drawSection.GetAt(1))){
-					for (int i = 0; i < game->drawSection.GetAt(1)->Count(); i++){
-						game->drawSection.GetAt(1)->MoveCard(drawPile);
+					for (int i = 0; i < drawDeck; i++){
+						std::cout << game->drawSection.GetAt(1)->MoveCard(drawPile) <<std::endl;
+						std::cout << game->drawSection.GetAt(1)->Count() <<"\n";
 					}
 					drawPile->InitPile();
 				}
@@ -151,6 +159,7 @@ void Update(Game* game){
 				
 		default:
 			ColorPrint("Invalid Input: " + input, RED);
+    		WaitForEnter();
 			return;
 		}
 		

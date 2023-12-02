@@ -12,9 +12,11 @@
 #include "gameLogic/gameLogic.hpp"
 
 //Run
+//valgrind --leak-check=full ./main
 //g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 //g++-17 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 int main(){
+	std::cout << std::boolalpha;
 	const int tableuColumns = 7;
 	const int drawDeck = 52-(tableuColumns*(tableuColumns+1)/2);
 
@@ -49,7 +51,7 @@ int main(){
 	bool inGame = true;
 	while (inGame){
 		Render(game);
-		Update(game);
+		Update(game, drawDeck);
 	}
 
 	return 0;

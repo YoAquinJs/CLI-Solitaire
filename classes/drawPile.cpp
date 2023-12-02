@@ -12,11 +12,10 @@ void DrawPile::InitPile(){
 	for (Card* card : *cards){
 		card->hidden = true;
 	}
-	GetAt(0)->hidden = false;
 }
 
 bool DrawPile::CanAddCard(Card* card){
-	return false;
+	return true;
 }
 
 bool DrawPile::MoveCard(CardPile* destination){
