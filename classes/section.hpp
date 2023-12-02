@@ -6,9 +6,8 @@
 #include "direction.hpp"
 
 class Section{
-	private:
-		std::vector<CardPile*> piles;
-		std::map<Direction, Section*> surroundingSections;
+	std::vector<CardPile*> piles;
+	std::map<Direction, Section*> surroundingSections;
 
 	public:
 		Section();
