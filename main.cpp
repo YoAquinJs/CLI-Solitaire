@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 #include "magic_enum/magic_enum.hpp"
 
 #include "classes/game.hpp"
@@ -11,7 +10,7 @@
 #include "classes/foundation.hpp"
 #include "gameLogic/gameLogic.hpp"
 
-/*Run
+/*Run Commands
 valgrind --leak-check=full ./main
 g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
