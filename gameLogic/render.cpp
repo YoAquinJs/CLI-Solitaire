@@ -64,7 +64,7 @@ void Render(Game* game){
 
 			PrintLine("Cursor Directions");
 			PrintLine("(W) up | (S) down | (A) left | (D) rigth");
-			PrintLine("Cursor Commands");
+			PrintLine("Commands");
 			PrintLine("(L) lock the cursor | (K) unlock the cursor");
 			PrintLine(BLUE+"blue"+RESET+" cursor is the origin and the "+YELLOW+"yellow"+RESET+" the destination");
 			PrintLine("J to perform a movement");
