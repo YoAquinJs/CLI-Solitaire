@@ -16,5 +16,7 @@ class Deck{
 		~Deck();
 
 		void Shuffle();
+		
+		int GetSize();
 		std::vector<Card*>* GetRange(int fetchedCards);
 };

@@ -17,19 +17,18 @@ g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && valgrind --leak-check=full ./main
 */
 int main(){
-	std::cout << std::boolalpha;
-	const int tableuColumns = 7;
-	const int drawDeck = 52-(tableuColumns*(tableuColumns+1)/2);
-
 	//Deck
 	Deck deck;
 	deck.Shuffle();
+
+	const int tableuColumns = 7;
+	const int drawDeckSize = deck.GetSize()-(tableuColumns*(tableuColumns+1)/2);
 
 	//Game Object
 	Game* game = new Game();
 
 	//Sections
-	game->drawSection.AddPile(new DrawPile(deck.GetRange(drawDeck)));
+	game->drawSection.AddPile(new DrawPile(deck.GetRange(drawDeckSize)));
 	game->drawSection.AddPile(new CardPile(new std::vector<Card*>()));
 
 	for (int i = 0; i < suitSize; i++){
@@ -52,7 +51,7 @@ int main(){
 	bool inGame = true;
 	while (inGame){
 		Render(game);
-		Update(game, drawDeck);
+		Update(game, drawDeckSize);
 	}
 
 	return 0;

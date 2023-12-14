@@ -14,7 +14,7 @@ void FillRenderMatrix(Game* game);
 bool WonGame(Game* game);
 void PerformAction(Game* game, char input, int drawDeck);
 
-void Update(Game* game, int drawDeck){
+void Update(Game* game, int drawDeckSize){
 	switch (game->state){
 		case GameState::START:
     		WaitForEnter();
@@ -32,7 +32,7 @@ void Update(Game* game, int drawDeck){
 				return;
 			}
 
-			PerformAction(game, std::tolower(rawInput[0]), drawDeck);
+			PerformAction(game, std::tolower(rawInput[0]), drawDeckSize);
 
 			if (WonGame(game))
 				game->state = GameState::WON;
@@ -77,7 +77,7 @@ void FillRenderMatrix(Game* game){
 	}
 }
 
-void PerformAction(Game* game, char input, int drawDeck){
+void PerformAction(Game* game, char input, int drawDeckSize){
 	switch (input){
 		case 'w':
 			if (game->cursor1->locked)
@@ -127,7 +127,7 @@ void PerformAction(Game* game, char input, int drawDeck){
 
 				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->drawSection.GetAt(0));
 				if (!drawPile->MoveCard(game->drawSection.GetAt(1))){
-					for (int i = 0; i < drawDeck; i++){
+					for (int i = 0; i < drawDeckSize; i++){
 						std::cout << game->drawSection.GetAt(1)->MoveCard(drawPile) <<std::endl;
 						std::cout << game->drawSection.GetAt(1)->Count() <<"\n";
 					}
