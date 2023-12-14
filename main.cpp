@@ -10,9 +10,11 @@
 #include "classes/game.hpp"
 
 /*Run Commands
-valgrind --leak-check=full ./main
+- Windows
 g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+- Linux
 g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
+g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && valgrind --leak-check=full ./main
 */
 int main(){
 	std::cout << std::boolalpha;
