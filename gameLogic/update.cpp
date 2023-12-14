@@ -1,7 +1,7 @@
 #include <string>
-#include <iostream>
 #include <limits>
 #include <cstdlib>
+#include <iostream>
 
 #include "../classes/foundation.hpp"
 #include "../classes/drawPile.hpp"
@@ -9,34 +9,8 @@
 #include "gameLogic.hpp"
 #include "utils.hpp"
 
-void WaitForEnter(){
-	std::cin.clear();	
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::cin.get();
-}
-
-void FillRenderMatrix(Game* game){
-	//Empty space between draw section and foundation section
-	game->renderMatrix[2][0] = nullptr;
-
-	//Draw Section
-	for (int i = 0; i < game->drawSection.Count(); i++){
-		game->renderMatrix[i][0] = game->drawSection.GetAt(i)->GetAt(0);
-	}
-
-	//Foundation Section
-	for (int i = 0; i < game->foundationSection.Count(); i++){
-		game->renderMatrix[i+3][0] = game->foundationSection.GetAt(i)->GetAt(0);
-	}
-
-	//Tableu Section
-	for (int i = 1; i < 14; i++){
-		for (int j = 0; j < game->tableuSection.Count(); j++){
-			Column* column = static_cast<Column*>(game->tableuSection.GetAt(j));
-			game->renderMatrix[j][i] = game->tableuSection.GetAt(j)->GetAt(column->Count()-i);
-		}
-	}
-}
+void WaitForEnter();
+void FillRenderMatrix(Game* game);
 
 void Update(Game* game, int drawDeck){
 	switch (game->state){
@@ -176,5 +150,35 @@ void Update(Game* game, int drawDeck){
 			WaitForEnter();
 			exit(EXIT_SUCCESS);
 			break;
+	}
+}
+
+
+void WaitForEnter(){
+	std::cin.clear();	
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.get();
+}
+
+void FillRenderMatrix(Game* game){
+	//Empty space between draw section and foundation section
+	game->renderMatrix[2][0] = nullptr;
+
+	//Draw Section
+	for (int i = 0; i < game->drawSection.Count(); i++){
+		game->renderMatrix[i][0] = game->drawSection.GetAt(i)->GetAt(0);
+	}
+
+	//Foundation Section
+	for (int i = 0; i < game->foundationSection.Count(); i++){
+		game->renderMatrix[i+3][0] = game->foundationSection.GetAt(i)->GetAt(0);
+	}
+
+	//Tableu Section
+	for (int i = 1; i < 14; i++){
+		for (int j = 0; j < game->tableuSection.Count(); j++){
+			Column* column = static_cast<Column*>(game->tableuSection.GetAt(j));
+			game->renderMatrix[j][i] = game->tableuSection.GetAt(j)->GetAt(column->Count()-i);
+		}
 	}
 }

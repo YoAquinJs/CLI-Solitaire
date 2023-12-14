@@ -15,7 +15,6 @@ void Section::AddPile(CardPile* pile){
  	piles.push_back(pile);
 }
 
-
 int Section::Count(){
 	return piles.size();
 }

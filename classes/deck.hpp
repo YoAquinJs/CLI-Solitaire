@@ -4,9 +4,10 @@
 #include "cardPile.hpp"
 
 class Deck{
+	Card** cards;
+	
 	int deckSize;
 	int fetchedCards;
-	Card** cards;
 
 	void swap (Card *a, Card *b);
 

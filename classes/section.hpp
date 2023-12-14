@@ -16,6 +16,7 @@ class Section{
 		int Count();
 		CardPile* GetAt(int index);
 		Section* GetSurroundingSection(Direction direction);
+		
 		void AddPile(CardPile* pile);
 		void LinkSurroundingSection(Direction direction, Section* section);
 };

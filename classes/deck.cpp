@@ -2,7 +2,6 @@
 #include <random>
 #include <iostream>
 
-#include "../magic_enum/magic_enum.hpp"
 #include "deck.hpp"
 
 void Deck::swap (Card* a, Card* b) {
@@ -12,8 +11,6 @@ void Deck::swap (Card* a, Card* b) {
 }
 
 Deck::Deck() : fetchedCards(0) {
-	int suitSize = magic_enum::enum_count<CardSuit>();
-	int rankSize = magic_enum::enum_count<CardRank>();
 	deckSize = suitSize*rankSize;
 	cards = new Card*[deckSize];
 	

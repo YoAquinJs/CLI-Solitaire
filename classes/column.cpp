@@ -1,6 +1,6 @@
 #include <algorithm>
+
 #include "column.hpp"
-#include "../magic_enum/magic_enum.hpp"
 
 Column::Column(std::vector<Card*>* initialCards) : CardPile(initialCards) {
 	for (int i = 1; i < cards->size(); i++) {

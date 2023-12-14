@@ -1,4 +1,5 @@
 #include <vector>
+
 #include "cardPile.hpp"
 
 CardPile::CardPile(std::vector<Card*>* initialCards) : cards(initialCards) {}

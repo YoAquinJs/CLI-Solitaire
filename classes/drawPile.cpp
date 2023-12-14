@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+
 #include "drawPile.hpp"
 
 DrawPile::DrawPile(std::vector<Card*>* initialCards) : CardPile(initialCards){

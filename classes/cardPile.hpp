@@ -6,6 +6,7 @@
 class CardPile{
 	protected:
 		std::vector<Card*>* cards;
+
 		virtual void AddCard(Card* card);
 		virtual bool CanAddCard(Card* card);
 
@@ -15,6 +16,7 @@ class CardPile{
 
 		int Count();
 		Card* GetAt(unsigned int index);
+		
 		bool TryAddCard(Card* card);
 		virtual bool MoveCard(CardPile* destination);
 };

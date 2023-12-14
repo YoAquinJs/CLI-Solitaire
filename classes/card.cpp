@@ -29,6 +29,7 @@ char Card::SuitToChar(){
 			break;
 	}
 }
+
 std::string Card::RankToStr(){
 	switch (rank){
 		case CardRank::ACE:

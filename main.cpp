@@ -1,14 +1,13 @@
-#include <iostream>
 #include <string>
 #include <vector>
-#include "magic_enum/magic_enum.hpp"
+#include <iostream>
 
-#include "classes/game.hpp"
-#include "classes/deck.hpp"
-#include "classes/column.hpp"
-#include "classes/drawPile.hpp"
-#include "classes/foundation.hpp"
 #include "gameLogic/gameLogic.hpp"
+#include "classes/foundation.hpp"
+#include "classes/drawPile.hpp"
+#include "classes/column.hpp"
+#include "classes/deck.hpp"
+#include "classes/game.hpp"
 
 /*Run Commands
 valgrind --leak-check=full ./main
@@ -31,7 +30,7 @@ int main(){
 	game->drawSection.AddPile(new DrawPile(deck.GetRange(drawDeck)));
 	game->drawSection.AddPile(new CardPile(new std::vector<Card*>()));
 
-	for (int i = 0; i < magic_enum::enum_count<CardSuit>(); i++){
+	for (int i = 0; i < suitSize; i++){
 		game->foundationSection.AddPile(new Foundation());
 	}
 
