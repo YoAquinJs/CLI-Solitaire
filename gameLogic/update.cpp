@@ -42,7 +42,6 @@ void Update(Game* game, int drawDeckSize){
 		case GameState::WON:
 			WaitForEnter();
 
-			delete game;
 			exit(EXIT_SUCCESS);
 			break;
 	}

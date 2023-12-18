@@ -26,52 +26,52 @@ int main(){
 	const int drawDeckSize = deck.GetSize()-(tableuColumns*(tableuColumns+1)/2);
 
 	//Game Object
-	Game* game = new Game();
+	Game game;
 
 	//Sections
-	game->drawSection.AddPile(new DrawPile(deck.GetRange(drawDeckSize)));
-	game->drawSection.AddPile(new CardPile(new std::vector<Card*>()));
+	game.drawSection.AddPile(new DrawPile(deck.GetRange(drawDeckSize)));
+	game.drawSection.AddPile(new CardPile(new std::vector<Card*>()));
 
 	for (int i = 0; i < suitSize; i++){
-		game->foundationSection.AddPile(new Foundation());
+		game.foundationSection.AddPile(new Foundation());
 	}
 
 	for (int i = 1; i <= tableuColumns; i++){
-		game->tableuSection.AddPile(new Column(deck.GetRange(i)));
+		game.tableuSection.AddPile(new Column(deck.GetRange(i)));
 	}
 
-	game->SetCursors();
+	game.SetCursors();
 
 	//Card Pile links
-	game->drawSection.GetAt(0)->LinkTo(game->drawSection.GetAt(1), Direction(1,0));
-	game->drawSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(0), Direction(0,-1));
+	game.drawSection.GetAt(0)->LinkTo(game.drawSection.GetAt(1), Direction(1,0));
+	game.drawSection.GetAt(0)->LinkTo(game.tableuSection.GetAt(0), Direction(0,-1));
 
-	game->drawSection.GetAt(1)->LinkTo(game->foundationSection.GetAt(0), Direction(1,0));
-	game->drawSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(1), Direction(0,-1));
+	game.drawSection.GetAt(1)->LinkTo(game.foundationSection.GetAt(0), Direction(1,0));
+	game.drawSection.GetAt(1)->LinkTo(game.tableuSection.GetAt(1), Direction(0,-1));
 
-	game->foundationSection.GetAt(0)->LinkTo(game->foundationSection.GetAt(1), Direction(1,0));
-	game->foundationSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(3), Direction(0,-1));
+	game.foundationSection.GetAt(0)->LinkTo(game.foundationSection.GetAt(1), Direction(1,0));
+	game.foundationSection.GetAt(0)->LinkTo(game.tableuSection.GetAt(3), Direction(0,-1));
 	
-	game->foundationSection.GetAt(1)->LinkTo(game->foundationSection.GetAt(2), Direction(1,0));
-	game->foundationSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(4), Direction(0,-1));
+	game.foundationSection.GetAt(1)->LinkTo(game.foundationSection.GetAt(2), Direction(1,0));
+	game.foundationSection.GetAt(1)->LinkTo(game.tableuSection.GetAt(4), Direction(0,-1));
 
-	game->foundationSection.GetAt(2)->LinkTo(game->foundationSection.GetAt(3), Direction(1,0));
-	game->foundationSection.GetAt(2)->LinkTo(game->tableuSection.GetAt(5), Direction(0,-1));
+	game.foundationSection.GetAt(2)->LinkTo(game.foundationSection.GetAt(3), Direction(1,0));
+	game.foundationSection.GetAt(2)->LinkTo(game.tableuSection.GetAt(5), Direction(0,-1));
 
-	game->foundationSection.GetAt(3)->LinkTo(game->tableuSection.GetAt(6), Direction(0,-1));
+	game.foundationSection.GetAt(3)->LinkTo(game.tableuSection.GetAt(6), Direction(0,-1));
 	
-	game->tableuSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(1), Direction(1,0));
-	game->tableuSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(2), Direction(1,0));
-	game->tableuSection.GetAt(2)->LinkTo(game->tableuSection.GetAt(3), Direction(1,0));
-	game->tableuSection.GetAt(3)->LinkTo(game->tableuSection.GetAt(4), Direction(1,0));
-	game->tableuSection.GetAt(4)->LinkTo(game->tableuSection.GetAt(5), Direction(1,0));
-	game->tableuSection.GetAt(5)->LinkTo(game->tableuSection.GetAt(6), Direction(1,0));
+	game.tableuSection.GetAt(0)->LinkTo(game.tableuSection.GetAt(1), Direction(1,0));
+	game.tableuSection.GetAt(1)->LinkTo(game.tableuSection.GetAt(2), Direction(1,0));
+	game.tableuSection.GetAt(2)->LinkTo(game.tableuSection.GetAt(3), Direction(1,0));
+	game.tableuSection.GetAt(3)->LinkTo(game.tableuSection.GetAt(4), Direction(1,0));
+	game.tableuSection.GetAt(4)->LinkTo(game.tableuSection.GetAt(5), Direction(1,0));
+	game.tableuSection.GetAt(5)->LinkTo(game.tableuSection.GetAt(6), Direction(1,0));
 
 	//Game Loop
 	bool inGame = true;
 	while (inGame){
-		Render(game);
-		Update(game, drawDeckSize);
+		Render(&game);
+		Update(&game, drawDeckSize);
 	}
 
 	return 0;
