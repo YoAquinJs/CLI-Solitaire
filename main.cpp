@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 
+#include "gameLogic/utils.hpp"
 #include "gameLogic/gameLogic.hpp"
 #include "classes/foundation.hpp"
 #include "classes/drawPile.hpp"
@@ -14,7 +15,7 @@
 g++ gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
 - Linux
 g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && ./main
-g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && valgrind --leak-check=full ./main
+g++-13 gameLogic/*.cpp classes/*.cpp -o main main.cpp && sudo valgrind --leak-check=full ./main
 */
 int main(){
 	//Deck
@@ -39,13 +40,32 @@ int main(){
 		game->tableuSection.AddPile(new Column(deck.GetRange(i)));
 	}
 
-	//Section links
-	game->drawSection.LinkSurroundingSection(Direction(1,0), &game->foundationSection);
-	game->foundationSection.LinkSurroundingSection(Direction(-1,0), &game->drawSection);
+	game->SetCursors();
 
-	game->tableuSection.LinkSurroundingSection(Direction(0,1), &game->drawSection);
-	game->foundationSection.LinkSurroundingSection(Direction(0,-1), &game->tableuSection);
-	game->drawSection.LinkSurroundingSection(Direction(0,-1), &game->tableuSection);
+	//Card Pile links
+	game->drawSection.GetAt(0)->LinkTo(game->drawSection.GetAt(1), Direction(1,0));
+	game->drawSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(0), Direction(0,-1));
+
+	game->drawSection.GetAt(1)->LinkTo(game->foundationSection.GetAt(0), Direction(1,0));
+	game->drawSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(1), Direction(0,-1));
+
+	game->foundationSection.GetAt(0)->LinkTo(game->foundationSection.GetAt(1), Direction(1,0));
+	game->foundationSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(3), Direction(0,-1));
+	
+	game->foundationSection.GetAt(1)->LinkTo(game->foundationSection.GetAt(2), Direction(1,0));
+	game->foundationSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(4), Direction(0,-1));
+
+	game->foundationSection.GetAt(2)->LinkTo(game->foundationSection.GetAt(3), Direction(1,0));
+	game->foundationSection.GetAt(2)->LinkTo(game->tableuSection.GetAt(5), Direction(0,-1));
+
+	game->foundationSection.GetAt(3)->LinkTo(game->tableuSection.GetAt(6), Direction(0,-1));
+	
+	game->tableuSection.GetAt(0)->LinkTo(game->tableuSection.GetAt(1), Direction(1,0));
+	game->tableuSection.GetAt(1)->LinkTo(game->tableuSection.GetAt(2), Direction(1,0));
+	game->tableuSection.GetAt(2)->LinkTo(game->tableuSection.GetAt(3), Direction(1,0));
+	game->tableuSection.GetAt(3)->LinkTo(game->tableuSection.GetAt(4), Direction(1,0));
+	game->tableuSection.GetAt(4)->LinkTo(game->tableuSection.GetAt(5), Direction(1,0));
+	game->tableuSection.GetAt(5)->LinkTo(game->tableuSection.GetAt(6), Direction(1,0));
 
 	//Game Loop
 	bool inGame = true;

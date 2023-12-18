@@ -29,7 +29,7 @@ void Render(Game* game){
 	switch (game->state){
 		case GameState::START:
 			PrintLine("Card suits are represented by their initial leter");
-			PrintLine("C clubs |"+RED+" H hearts"+RESET+" | S spades |"+RED+" D diamonds"+RESET);
+			PrintLine("C clubs | "+RED+"H hearts"+RESET+" | S spades | "+RED+"D diamonds"+RESET);
 			ColorPrint("PRESS ENTER TWICE TO START", GREEN);
 			break;
 		case GameState::ONGAME:
@@ -111,7 +111,7 @@ std::string CardTopPrint(Card* card, Game* game, const int i, const int j){
 		
 		if (game->cursor1->GetCard() == card)
 			print+=BLUE;
-		if (game->cursor2->GetCard() == card && game->cursor1->locked)
+		if (game->cursor1->locked && game->cursor2->GetCard() == card)
 			print+=YELLOW;
 		
 		print += " ___ ";
@@ -127,8 +127,8 @@ std::string CardTopPrint(Card* card, Game* game, const int i, const int j){
 					print+=YELLOW;
 		}
 		print += " ___ ";
-	}else{
+	}else
 		print += "     ";
-	}
+
 	return print;
 }

@@ -42,6 +42,7 @@ void Update(Game* game, int drawDeckSize){
 		case GameState::WON:
 			WaitForEnter();
 
+			delete game;
 			exit(EXIT_SUCCESS);
 			break;
 	}
@@ -78,30 +79,33 @@ void FillRenderMatrix(Game* game){
 }
 
 void PerformAction(Game* game, char input, int drawDeckSize){
+	auto getSectionFunc = [&game](CardPile* pile) {
+    	return game->GetPileSection(pile);
+	};
 	switch (input){
 		case 'w':
 			if (game->cursor1->locked)
-				game->cursor2->Move(Direction(0,1));
+				game->cursor2->Move(Direction(0,1), getSectionFunc);
 			else
-				game->cursor1->Move(Direction(0,1));
+				game->cursor1->Move(Direction(0,1), getSectionFunc);
 			break;
 		case 's':
 			if (game->cursor1->locked)
-				game->cursor2->Move(Direction(0,-1));
+				game->cursor2->Move(Direction(0,-1), getSectionFunc);
 			else
-				game->cursor1->Move(Direction(0,-1));
+				game->cursor1->Move(Direction(0,-1), getSectionFunc);
 			break;
 		case 'a':
 			if (game->cursor1->locked)
-				game->cursor2->Move(Direction(-1,0));
+				game->cursor2->Move(Direction(-1,0), getSectionFunc);
 			else
-				game->cursor1->Move(Direction(-1,0));
+				game->cursor1->Move(Direction(-1,0), getSectionFunc);
 			break;
 		case 'd':
 			if (game->cursor1->locked)
-				game->cursor2->Move(Direction(1,0));
+				game->cursor2->Move(Direction(1,0), getSectionFunc);
 			else
-				game->cursor1->Move(Direction(1,0));
+				game->cursor1->Move(Direction(1,0), getSectionFunc);
 			break;
 
 		case 'l':

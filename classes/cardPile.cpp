@@ -1,8 +1,9 @@
 #include <vector>
+#include <iostream>
 
 #include "cardPile.hpp"
 
-CardPile::CardPile(std::vector<Card*>* initialCards) : cards(initialCards) {}
+CardPile::CardPile(std::vector<Card*>* initialCards) : cards(initialCards), surroundingPiles(std::map<Direction, CardPile*>()) {}
 
 CardPile::~CardPile(){
 	delete cards;
@@ -20,6 +21,12 @@ int CardPile::Count(){
 	return cards->size();
 }
 
+Card* CardPile::GetAt(unsigned int index){
+	if (index >= Count())
+		return nullptr;
+	return cards->at(index);
+}
+
 bool CardPile::TryAddCard(Card* card){
 	if (!CanAddCard(card))
 		return false;
@@ -34,10 +41,4 @@ bool CardPile::MoveCard(CardPile* destination){
 
 	cards->erase(cards->begin());
 	return true;
-}
-
-Card* CardPile::GetAt(unsigned int index){
-	if (index >= Count())
-		return nullptr;
-	return cards->at(index);
 }

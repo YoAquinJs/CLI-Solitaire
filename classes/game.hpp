@@ -18,4 +18,7 @@ struct Game{
 
 	Game();
 	~Game();
+
+	void SetCursors();
+	Section* GetPileSection(CardPile* pile);
 };

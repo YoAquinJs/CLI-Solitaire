@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+
 #include "utils.hpp"
 
 int StringColorExcludingLength(std::string str){

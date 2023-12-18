@@ -1,23 +1,25 @@
 #pragma once
 
+#include <functional>
+
 #include "direction.hpp"
 #include "cardPile.hpp"
 #include "section.hpp"
 
 class Cursor{
+	CardPile* pile;
 	Section* section;
-	unsigned int pileIndex;
 	unsigned int cardIndex;
 	
 	public:
 		bool locked;
 
-		Cursor(Section* section);
+		Cursor(Section* section , int pileIndex);
 		
 		int GetIndex();
 		Card* GetCard();
 		CardPile* GetPile();
 		Section* GetSection();
 		
-		void Move(Direction direction);
+		void Move(Direction direction, std::function<Section* (CardPile*)> getSection);
 };

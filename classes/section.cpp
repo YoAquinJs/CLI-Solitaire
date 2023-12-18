@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "cardPile.hpp"
 #include "section.hpp"
+#include "cardPile.hpp"
 
-Section::Section() : piles(std::vector<CardPile*>()), surroundingSections(std::map<Direction, Section*>()) {}
+Section::Section() : piles(std::vector<CardPile*>()) {}
 
 Section::~Section(){
 	for (CardPile* pile : piles){
@@ -19,20 +19,13 @@ int Section::Count(){
 	return piles.size();
 }
 
-void Section::LinkSurroundingSection(Direction direction, Section* surroundingSection){
-	if (surroundingSections.find(direction) != surroundingSections.end()){
-		std::cout << "Surrounding section " << surroundingSection->Count() << " already defined for that direction " << direction.x << " " << direction.y << std::endl;
-		return;
+int Section::GetIndexOf(CardPile* pile){
+	for(int i=0; i < piles.size(); i++){
+		if (piles[i] == pile)
+			return i;
 	}
 
-	surroundingSections.insert({direction, surroundingSection});
-}
-
-Section* Section::GetSurroundingSection(Direction direction){
-	auto surrounding = surroundingSections.find(direction);
-	if (surrounding != surroundingSections.end())
-		return surrounding->second;
-	return nullptr;
+	return -1;//Not found
 }
 
 CardPile* Section::GetAt(int index){
