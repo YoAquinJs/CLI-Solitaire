@@ -12,9 +12,9 @@
 void WaitForEnter();
 void FillRenderMatrix(Game* game);
 bool WonGame(Game* game);
-void PerformAction(Game* game, char input, int drawDeck);
+void PerformAction(Game* game, char input, int drawDeck, int &moveCount);
 
-void Update(Game* game, int drawDeckSize){
+void Update(Game* game, int drawDeckSize, int &moveCount){
 	switch (game->state){
 		case GameState::START:
     		WaitForEnter();
@@ -32,7 +32,7 @@ void Update(Game* game, int drawDeckSize){
 				return;
 			}
 
-			PerformAction(game, std::tolower(rawInput[0]), drawDeckSize);
+			PerformAction(game, std::tolower(rawInput[0]), drawDeckSize, moveCount);
 
 			if (WonGame(game))
 				game->state = GameState::WON;
@@ -77,7 +77,7 @@ void FillRenderMatrix(Game* game){
 	}
 }
 
-void PerformAction(Game* game, char input, int drawDeckSize){
+void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 	auto getSectionFunc = [&game](CardPile* pile) {
     	return game->GetPileSection(pile);
 	};
@@ -125,7 +125,7 @@ void PerformAction(Game* game, char input, int drawDeckSize){
 		case 'j':
 			//Draw pile Interactions
 			if (!game->cursor1->locked){
-				if (!(game->cursor1->GetPile() == game->drawSection.GetAt(0)))
+				if (game->cursor1->GetPile() != game->drawSection.GetAt(0))
 					break;
 
 				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->drawSection.GetAt(0));
@@ -136,31 +136,38 @@ void PerformAction(Game* game, char input, int drawDeckSize){
 					}
 					drawPile->InitPile();
 				}
+
+				moveCount++;
 				break;
 			}
 			//Draw Pile-Column Iteraction
 			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->tableuSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			//Draw Pile-Foundation Iteraction
 			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->foundationSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			//Column-Column Interaction
 			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor1->GetSection() == &game->tableuSection){
 				Column* destination = dynamic_cast<Column*>(game->cursor2->GetPile());
 				dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), destination);
+				moveCount++;
 				break;
 			}
 			//Foundation-Column Interaction
 			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor2->GetSection() == &game->foundationSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			if (game->cursor1->GetSection() == &game->foundationSection && game->cursor2->GetSection() == &game->tableuSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			break;

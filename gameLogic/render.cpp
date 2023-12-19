@@ -8,7 +8,7 @@
 std::string CardContentPrint(Card* card, const int i, const int j);
 std::string CardTopPrint(Card* card, Game* game, const int i, const int j);
 
-void Render(Game* game){
+void Render(Game* game, int &moveCount){
 	#ifdef _WIN32
         system("cls");
     #else
@@ -34,6 +34,8 @@ void Render(Game* game){
 			break;
 		case GameState::ONGAME:
 			std::cout << std::endl;
+			PrintLine(std::to_string(moveCount));
+			PrintLine("Movements");
 
 			for (int j = 0; j < 14; j++){//Row
 				bool oneNotNull = false;
@@ -72,6 +74,7 @@ void Render(Game* game){
 			break;
 		case GameState::WON:
 			PrintLine("YOU WON!!!");
+			PrintLine("played " + std::to_string(moveCount) + " movements");
 			ColorPrint("PRESS ENTER TWICE TO CLOSE THE PROGRAM", GREEN);
 			break;
 	}

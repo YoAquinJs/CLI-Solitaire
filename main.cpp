@@ -68,10 +68,11 @@ int main(){
 	game.tableuSection.GetAt(5)->LinkTo(game.tableuSection.GetAt(6), Direction(1,0));
 
 	//Game Loop
+	int moveCount = 0;
 	bool inGame = true;
 	while (inGame){
-		Render(&game);
-		Update(&game, drawDeckSize);
+		Render(&game, moveCount);
+		Update(&game, drawDeckSize, moveCount);
 	}
 
 	return 0;
