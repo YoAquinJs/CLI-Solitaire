@@ -34,13 +34,19 @@ void Render(Game* game, int &moveCount){
 			break;
 		case GameState::ONGAME:
 			std::cout << std::endl;
+			PrintLine("Movements:");
 			PrintLine(std::to_string(moveCount));
-			PrintLine("Movements");
-
+			
+			std::cout << GREEN << "              Draw                 Foundation               " << RESET << std::endl;
 			for (int j = 0; j < 14; j++){//Row
 				bool oneNotNull = false;
 				std::string line = "";
 				std::string topLine = "";
+
+				if(j==1){
+					std::cout << std::endl;
+					ColorPrint("Tableu", GREEN);
+				}
 
 				for (int i = 0; i < 7; i++){//Column
 					Card* card = game->renderMatrix[i][j];
