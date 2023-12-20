@@ -70,9 +70,9 @@ void FillRenderMatrix(Game* game){
 
 	//Tableu Section
 	for (int i = 1; i < 14; i++){
-		for (int j = 0; j < game->tableuSection.Count(); j++){
-			Column* column = static_cast<Column*>(game->tableuSection.GetAt(j));
-			game->renderMatrix[j][i] = game->tableuSection.GetAt(j)->GetAt(column->Count()-i);
+		for (int j = 0; j < game->tableauSection.Count(); j++){
+			Column* column = static_cast<Column*>(game->tableauSection.GetAt(j));
+			game->renderMatrix[j][i] = game->tableauSection.GetAt(j)->GetAt(column->Count()-i);
 		}
 	}
 }
@@ -147,7 +147,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				break;
 			}
 			//Draw Pile-Column Iteraction
-			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->tableuSection){
+			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->tableauSection){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();
@@ -159,7 +159,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				break;
 			}
 			//Column-Column Interaction
-			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor2->GetSection() == &game->tableuSection){
+			if (game->cursor1->GetSection() == &game->tableauSection && game->cursor2->GetSection() == &game->tableauSection){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();
@@ -171,7 +171,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				break;
 			}
 			//Foundation-Column Interaction
-			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor2->GetSection() == &game->foundationSection){
+			if (game->cursor1->GetSection() == &game->tableauSection && game->cursor2->GetSection() == &game->foundationSection){
 				if(game->cursor1->GetIndex() != 0){
 					ColorPrint("Can only move a single card to foundation", RED);
 					WaitForEnter();
@@ -182,7 +182,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 					moveCount++;
 				break;
 			}
-			if (game->cursor1->GetSection() == &game->foundationSection && game->cursor2->GetSection() == &game->tableuSection){
+			if (game->cursor1->GetSection() == &game->foundationSection && game->cursor2->GetSection() == &game->tableauSection){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();

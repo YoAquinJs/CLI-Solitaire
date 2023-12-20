@@ -14,7 +14,7 @@ struct Game{
 	
 	Section drawSection;
 	Section foundationSection;
-	Section tableuSection;
+	Section tableauSection;
 
 	Game();
 	~Game();

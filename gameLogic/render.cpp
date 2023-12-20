@@ -45,7 +45,7 @@ void Render(Game* game, int &moveCount){
 
 				if(j==1){
 					std::cout << std::endl;
-					ColorPrint("Tableu", GREEN);
+					ColorPrint("tableau", GREEN);
 				}
 
 				for (int i = 0; i < 7; i++){//Column
@@ -127,12 +127,12 @@ std::string CardTopPrint(Card* card, Game* game, const int i, const int j){
 	}else if ((j==0 && i!=2) || j==1){
 		if ((j==0 && game->cursor1->GetSection() == &(game->drawSection) && game->cursor1->GetPile() == game->drawSection.GetAt(i)) ||
 			(j==0 && game->cursor1->GetSection() == &(game->foundationSection) && game->cursor1->GetPile() == game->foundationSection.GetAt(i-3)) ||
-			(j==1 && game->cursor1->GetSection() == &(game->tableuSection) && game->cursor1->GetPile() == game->tableuSection.GetAt(i)))
+			(j==1 && game->cursor1->GetSection() == &(game->tableauSection) && game->cursor1->GetPile() == game->tableauSection.GetAt(i)))
 				print+=BLUE;
 		if (game->cursor1->locked){
 			if ((j==0 && game->cursor2->GetSection() == &(game->drawSection) && game->cursor2->GetPile() == game->drawSection.GetAt(i)) ||
 				(j==0 && game->cursor2->GetSection() == &(game->foundationSection) && game->cursor2->GetPile() == game->foundationSection.GetAt(i-3)) ||
-				(j==1 && game->cursor2->GetSection() == &(game->tableuSection) && game->cursor2->GetPile() == game->tableuSection.GetAt(i)))
+				(j==1 && game->cursor2->GetSection() == &(game->tableauSection) && game->cursor2->GetPile() == game->tableauSection.GetAt(i)))
 					print+=YELLOW;
 		}
 		print += " ___ ";

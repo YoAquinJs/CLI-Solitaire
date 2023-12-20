@@ -1,7 +1,7 @@
 #include "game.hpp"
 #include "section.hpp"
 
-Game::Game() : state(GameState::START), drawSection(Section()), foundationSection(Section()), tableuSection(Section()) {}
+Game::Game() : state(GameState::START), drawSection(Section()), foundationSection(Section()), tableauSection(Section()) {}
 
 Game::~Game(){
 	delete cursor1;
@@ -10,12 +10,12 @@ Game::~Game(){
 
 void Game::SetCursors(){
 	cursor1 = new Cursor(&drawSection, 0);
-	cursor2 = new Cursor(&tableuSection, 0);
+	cursor2 = new Cursor(&tableauSection, 0);
 }
 
 Section* Game::GetPileSection(CardPile* pile){
-	if(tableuSection.GetIndexOf(pile) != -1)
-		return &tableuSection;
+	if(tableauSection.GetIndexOf(pile) != -1)
+		return &tableauSection;
 	if(foundationSection.GetIndexOf(pile) != -1)
 		return &foundationSection;
 	if(drawSection.GetIndexOf(pile) != -1)
