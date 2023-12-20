@@ -1,5 +1,3 @@
-#include <vector>
-
 #include "foundation.hpp"
 
 Foundation::Foundation() : CardPile(new std::vector<Card*>()) {}

@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "section.hpp"
 #include "cardPile.hpp"
 

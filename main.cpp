@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <iostream>
 
 #include "gameLogic/utils.hpp"
 #include "gameLogic/gameLogic.hpp"

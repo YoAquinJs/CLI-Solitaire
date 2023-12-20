@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 #include "cardPile.hpp"
 
 class Column : public CardPile {
