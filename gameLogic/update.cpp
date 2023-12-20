@@ -166,8 +166,10 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 					break;
 				}
 
-				if(dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), dynamic_cast<Column*>(game->cursor2->GetPile())))
+				if(dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), dynamic_cast<Column*>(game->cursor2->GetPile()))){
+					game->cursor1->SetIndexToZero();
 					moveCount++;
+				}
 				break;
 			}
 			//Foundation-Column Interaction

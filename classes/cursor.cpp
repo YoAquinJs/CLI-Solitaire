@@ -1,16 +1,18 @@
-#include <iostream>
-
 #include "cursor.hpp"
 #include "column.hpp"
 
 Cursor::Cursor(Section* section , int pileIndex) : section(section), pile(section->GetAt(pileIndex)), cardIndex(0), locked(false) {}
 
+void Cursor::SetIndexToZero(){
+	cardIndex = 0;
+}
+
 void Cursor::Move(Direction direction, std::function<Section* (CardPile*)> getSection){	
 	int newCard = cardIndex + direction.y;
-	
+
 	bool offLimitCard = false;
 	if (Column* column = dynamic_cast<Column*>(GetPile())){
-		if(newCard < 0 || newCard == column->Count())
+		if(newCard < 0 || newCard >= column->Count())
 			offLimitCard = true;
 	}else if (newCard != cardIndex)
 		offLimitCard = true;
