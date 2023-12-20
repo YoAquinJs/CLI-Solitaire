@@ -12,11 +12,11 @@ Column::Column(std::vector<Card*>* initialCards) : CardPile(initialCards) {
 bool Column::CanAddCard(Card* card) {
 	if (Count() == 0)
 		return card->GetRank() == CardRank::KING;
-	return card->IsLesserRank(GetAt(0)) && card->IsDiffColor(GetAt(0));
+	return card->IsOneLesserRank(GetAt(0)) && card->IsDiffColor(GetAt(0));
 }
 
 bool Column::MoveSubColumn(int index, Column* destination){
-	if (GetAt(index)->hidden || !destination->CanAddCard(GetAt(index)))
+	if (Count() == 0 || GetAt(index)->hidden || !destination->CanAddCard(GetAt(index)))
 		return false;
 
     for (int i = index; i > -1; i--){

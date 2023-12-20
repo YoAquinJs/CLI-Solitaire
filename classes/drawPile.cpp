@@ -20,9 +20,9 @@ bool DrawPile::CanAddCard(Card* card){
 }
 
 bool DrawPile::MoveCard(CardPile* destination){
-	if (Count() == 0 || !(destination->TryAddCard(GetAt(0)))){
+	if (Count() == 0 || !(destination->TryAddCard(GetAt(0))))
 		return false;
-	}
+	
 	GetAt(0)->hidden = false;
 	cards->erase(cards->begin());
 	return true;

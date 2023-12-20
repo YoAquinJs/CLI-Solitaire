@@ -53,8 +53,8 @@ std::string Card::RankToStr(){
 			break;
 	}}
 
-bool Card::IsLesserRank(Card* card){
-	return static_cast<int>(rank) < static_cast<int>(card->rank);
+bool Card::IsOneLesserRank(Card* card){
+	return static_cast<int>(rank) == static_cast<int>(card->rank)-1;
 }
 
 bool Card::IsDiffColor(Card* card){
