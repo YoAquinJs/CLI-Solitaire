@@ -1,13 +1,52 @@
 #include <string>
-#include <iostream>
 #include <limits>
 #include <cstdlib>
+#include <iostream>
 
 #include "../classes/foundation.hpp"
 #include "../classes/drawPile.hpp"
 #include "../classes/column.hpp"
 #include "gameLogic.hpp"
 #include "utils.hpp"
+
+void WaitForEnter();
+void FillRenderMatrix(Game* game);
+bool WonGame(Game* game);
+void PerformAction(Game* game, char input, int drawDeck, int &moveCount);
+
+void Update(Game* game, int drawDeckSize, int &moveCount){
+	switch (game->state){
+		case GameState::START:
+    		WaitForEnter();
+
+			game->state = GameState::ONGAME;
+			FillRenderMatrix(game);
+			break;
+		case GameState::ONGAME:
+		{
+			std::string rawInput;
+			std::cin >> rawInput;
+
+			if (rawInput.size() != 1){
+				ColorPrint("Invalid Action, more than a single character", RED);
+				return;
+			}
+
+			PerformAction(game, std::tolower(rawInput[0]), drawDeckSize, moveCount);
+
+			if (WonGame(game))
+				game->state = GameState::WON;
+
+			FillRenderMatrix(game);
+		}break;
+		case GameState::WON:
+			WaitForEnter();
+
+			exit(EXIT_SUCCESS);
+			break;
+	}
+}
+
 
 void WaitForEnter(){
 	std::cin.clear();	
@@ -38,122 +77,97 @@ void FillRenderMatrix(Game* game){
 	}
 }
 
-void Update(Game* game, int drawDeck){
-	switch (game->state){
-	case GameState::START:
-			PrintLine("Card suits are expressed as their initial leter");
-			PrintLine("C clubs | H hearts | S spades | D diamonds");
-			ColorPrint("PRESS ENTER TWICE TO START", GREEN);
-
-    		WaitForEnter();
-
-			game->state = GameState::ONGAME;
-			FillRenderMatrix(game);
-		break;
-	case GameState::ONGAME:
-	{
-		PrintLine("Cursor Directions (W) up | (S) down | (A) left | (D) rigth)");
-		PrintLine("L to lock the cursor in a position | K to unlock it");
-		PrintLine("The blue cursor is the origin and the yellow the destination");
-		PrintLine("J to perform a movement");
-		ColorPrint("  Press a Key ", BLUE);
-		std::string rawInput;
-		std::cin >> rawInput;
-
-		if (rawInput.size() != 1)
-			return;
-		char input = std::tolower(rawInput[0]);
-
-		switch (input){
+void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
+	auto getSectionFunc = [&game](CardPile* pile) {
+    	return game->GetPileSection(pile);
+	};
+	switch (input){
 		case 'w':
-			if (game->cursor1->locked){
-				game->cursor2->Move(Direction(0,1));
-				break;
-			}
-			game->cursor1->Move(Direction(0,1));
+			if (game->cursor1->locked)
+				game->cursor2->Move(Direction(0,1), getSectionFunc);
+			else
+				game->cursor1->Move(Direction(0,1), getSectionFunc);
 			break;
-
 		case 's':
-			if (game->cursor1->locked){
-				game->cursor2->Move(Direction(0,-1));
-				break;
-			}
-			game->cursor1->Move(Direction(0,-1));
+			if (game->cursor1->locked)
+				game->cursor2->Move(Direction(0,-1), getSectionFunc);
+			else
+				game->cursor1->Move(Direction(0,-1), getSectionFunc);
 			break;
-
 		case 'a':
-			if (game->cursor1->locked){
-				game->cursor2->Move(Direction(-1,0));
-				break;
-			}
-			game->cursor1->Move(Direction(-1,0));
+			if (game->cursor1->locked)
+				game->cursor2->Move(Direction(-1,0), getSectionFunc);
+			else
+				game->cursor1->Move(Direction(-1,0), getSectionFunc);
 			break;
-
 		case 'd':
-			if (game->cursor1->locked){
-				game->cursor2->Move(Direction(1,0));
-				break;
-			}
-			game->cursor1->Move(Direction(1,0));
+			if (game->cursor1->locked)
+				game->cursor2->Move(Direction(1,0), getSectionFunc);
+			else
+				game->cursor1->Move(Direction(1,0), getSectionFunc);
 			break;
 
 		case 'l':
 			if (game->cursor1->locked){
 				ColorPrint("Invalid Action, cannot lock both cursors", RED);
 				WaitForEnter();
-				return;
-			}
-			game->cursor1->locked=true;
+			}else
+				game->cursor1->locked=true;
 			break;
-
 		case 'k':
 			if (!game->cursor1->locked){
 				ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
 	    		WaitForEnter();
-				return;
-			}
-			game->cursor1->locked=false;
+			}else
+				game->cursor1->locked=false;
 			break;
 
 		case 'j':
 			//Draw pile Interactions
 			if (!game->cursor1->locked){
-				if (!(game->cursor1->GetPile() == game->drawSection.GetAt(0)))
+				if (game->cursor1->GetPile() != game->drawSection.GetAt(0))
 					break;
 
 				DrawPile* drawPile = dynamic_cast<DrawPile*>(game->drawSection.GetAt(0));
 				if (!drawPile->MoveCard(game->drawSection.GetAt(1))){
-					for (int i = 0; i < drawDeck; i++){
+					for (int i = 0; i < drawDeckSize; i++){
 						std::cout << game->drawSection.GetAt(1)->MoveCard(drawPile) <<std::endl;
 						std::cout << game->drawSection.GetAt(1)->Count() <<"\n";
 					}
 					drawPile->InitPile();
 				}
+
+				moveCount++;
 				break;
 			}
 			//Draw Pile-Column Iteraction
 			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->tableuSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			//Draw Pile-Foundation Iteraction
 			if (game->cursor1->GetPile() == game->drawSection.GetAt(1) && game->cursor2->GetSection() == &game->foundationSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			//Column-Column Interaction
 			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor1->GetSection() == &game->tableuSection){
 				Column* destination = dynamic_cast<Column*>(game->cursor2->GetPile());
 				dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), destination);
+				moveCount++;
 				break;
 			}
 			//Foundation-Column Interaction
 			if (game->cursor1->GetSection() == &game->tableuSection && game->cursor2->GetSection() == &game->foundationSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			if (game->cursor1->GetSection() == &game->foundationSection && game->cursor2->GetSection() == &game->tableuSection){
 				game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile()));
+				moveCount++;
 				break;
 			}
 			break;
@@ -161,36 +175,15 @@ void Update(Game* game, int drawDeck){
 		default:
 			ColorPrint("Invalid Input: " + input, RED);
     		WaitForEnter();
-			return;
-		}
-		
-		bool won = true;
-		for (int i = 0; i < game->foundationSection.Count(); i++){
-			if (game->foundationSection.GetAt(i)->Count() == 0){
-				won = false;
-				break;
-			}
-			if (game->foundationSection.GetAt(i)->GetAt(0)->GetRank() != CardRank::KING){
-				won = false;
-				break;
-			}
-		}
-		if (won){
-			game->state = GameState::WON;
 			break;
 		}
-		
-		FillRenderMatrix(game);
-	}break;
-	case GameState::WON:
-			ColorPrint("YOU WON!!!", GREEN);
-			ColorPrint("PRESS ENTER TWICE TO CLOSE THE PROGRAM", GREEN);
+}
 
-    		std::cin.clear();
-    		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    		std::cin.get();
-
-			exit(EXIT_SUCCESS);
-		break;
+bool WonGame(Game* game){
+	for (int i = 0; i < game->foundationSection.Count(); i++){
+		if (game->foundationSection.GetAt(i)->Count() == 0 || game->foundationSection.GetAt(i)->GetAt(0)->GetRank() != CardRank::KING)
+			return false;
 	}
+
+	return true;
 }

@@ -2,7 +2,6 @@
 #include <random>
 #include <iostream>
 
-#include "../magic_enum/magic_enum.hpp"
 #include "deck.hpp"
 
 void Deck::swap (Card* a, Card* b) {
@@ -12,8 +11,6 @@ void Deck::swap (Card* a, Card* b) {
 }
 
 Deck::Deck() : fetchedCards(0) {
-	int suitSize = magic_enum::enum_count<CardSuit>();
-	int rankSize = magic_enum::enum_count<CardRank>();
 	deckSize = suitSize*rankSize;
 	cards = new Card*[deckSize];
 	
@@ -32,8 +29,13 @@ void Deck::Shuffle(){
 	for (int i = deckSize - 1; i > 0; i--) {
 	    int j = rand() % (i + 1);
 	    swap(cards[i], cards[j]);
-	} 
+	}
 }
+
+int Deck::GetSize(){
+	return deckSize;
+}
+
 
 std::vector<Card*>* Deck::GetRange(int count){
 	std::vector<Card*>* pileStack = new std::vector<Card*>();
@@ -43,7 +45,6 @@ std::vector<Card*>* Deck::GetRange(int count){
 	}
 
 	fetchedCards += count;
-
 	return pileStack;
 }
 
