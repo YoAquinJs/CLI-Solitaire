@@ -15,7 +15,7 @@ void Render(Game* game, int &moveCount){
         system("clear");
     #endif
 
-	std::string title = "SOLITARIE!";
+	std::string title = "SOLITAIRE!";
 	std::string titleLine = "";
 	for (int i = 0; i < (windowWidth-title.length())/2; i++){
 		titleLine+= (i%2==0 ? RESET : RED)+"-";
