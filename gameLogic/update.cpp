@@ -199,7 +199,9 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 			break;
 				
 		default:
-			ColorPrint("Invalid Input: " + input, RED);
+			std::string response = "Invalid Input: ";
+			response += input;
+			ColorPrint(response, RED);
     		WaitForEnter();
 			break;
 		}
