@@ -1,7 +1,6 @@
 #include <string>
 #include <limits>
 #include <cstdlib>
-#include <iostream>
 
 #include "../classes/foundation.hpp"
 #include "../classes/drawPile.hpp"
@@ -29,6 +28,7 @@ void Update(Game* game, int drawDeckSize, int &moveCount){
 
 			if (rawInput.size() != 1){
 				ColorPrint("Invalid Action, more than a single character", RED);
+				WaitForEnter();
 				return;
 			}
 
@@ -81,6 +81,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 	auto getSectionFunc = [&game](CardPile* pile) {
     	return game->GetPileSection(pile);
 	};
+
 	switch (input){
 		case 'w':
 			if (game->cursor1->locked)
@@ -122,7 +123,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				game->cursor1->locked=false;
 			break;
 
-		case 'j':
+		case 'j':	
 			//Draw pile Interactions
 			if (!game->cursor1->locked){
 				if (game->cursor1->GetPile() != game->drawSection.GetAt(0))
@@ -166,8 +167,10 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 					break;
 				}
 
-				if(dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), dynamic_cast<Column*>(game->cursor2->GetPile())))
+				if(dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), dynamic_cast<Column*>(game->cursor2->GetPile()))){
+					game->cursor1->SetIndexToZero();
 					moveCount++;
+				}
 				break;
 			}
 			//Foundation-Column Interaction

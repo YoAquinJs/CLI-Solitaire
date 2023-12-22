@@ -15,6 +15,17 @@ bool Column::CanAddCard(Card* card) {
 	return card->IsOneLesserRank(GetAt(0)) && card->IsDiffColor(GetAt(0));
 }
 
+bool Column::MoveCard(CardPile* destination){
+	if (Count() == 0 || !(destination->TryAddCard(GetAt(0))))
+		return false;
+
+	cards->erase(cards->begin());
+	
+	if (GetAt(0) != nullptr)
+		GetAt(0)->hidden = false;
+	return true;
+}
+
 bool Column::MoveSubColumn(int index, Column* destination){
 	if (Count() == 0 || GetAt(index)->hidden || !destination->CanAddCard(GetAt(index)))
 		return false;
@@ -24,6 +35,7 @@ bool Column::MoveSubColumn(int index, Column* destination){
 		cards->erase(cards->begin() + i);
 	}
 
-	GetAt(0)->hidden = false;
+	if (GetAt(0) != nullptr)
+		GetAt(0)->hidden = false;
 	return true;
 }

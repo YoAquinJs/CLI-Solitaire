@@ -1,6 +1,5 @@
 #include <time.h>
 #include <random>
-#include <iostream>
 
 #include "deck.hpp"
 

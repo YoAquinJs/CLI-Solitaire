@@ -21,5 +21,6 @@ class Cursor{
 		CardPile* GetPile();
 		Section* GetSection();
 		
+		void SetIndexToZero();
 		void Move(Direction direction, std::function<Section* (CardPile*)> getSection);
 };

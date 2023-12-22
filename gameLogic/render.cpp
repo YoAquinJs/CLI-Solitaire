@@ -75,7 +75,8 @@ void Render(Game* game, int &moveCount){
 			PrintLine("Commands");
 			PrintLine("(L) lock the cursor | (K) unlock the cursor");
 			PrintLine(BLUE+"blue"+RESET+" cursor is the origin and the "+YELLOW+"yellow"+RESET+" the destination");
-			PrintLine("J to perform a movement");
+			PrintLine("(J) to perform a movement");
+			std::cout << std::endl;
 			ColorPrint("Enter a Command or Direction", GREEN);
 			break;
 		case GameState::WON:
