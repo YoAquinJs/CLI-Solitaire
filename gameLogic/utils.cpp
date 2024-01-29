@@ -5,13 +5,12 @@
 
 int StringColorExcludingLength(const std::string& str){
 	int count = str.length();
-	std::string colorStrs[] = {RESET, RED, GREEN, YELLOW, BLUE};
-	for (std::string colorStr : colorStrs) {
+	for (std::string colorStr : COLORS) {
 		int pos = 0;
 		int finds = 0;
 
 		while ((pos = str.find(colorStr, pos)) != std::string::npos) {
-			++finds;
+			finds++;
 			pos += colorStr.length();
 		}
 		count-=(finds*colorStr.length());

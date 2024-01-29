@@ -22,6 +22,6 @@ class Card{
 		char SuitToChar();
 		std::string RankToStr();
 		
-		bool IsOneLesserRank(Card* card);
-		bool IsDiffColor(Card* card);
+		bool IsOneLesserRank(const Card* card);
+		bool IsDiffColor(const Card* card);
 };

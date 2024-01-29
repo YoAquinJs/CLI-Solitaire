@@ -14,7 +14,7 @@ void Game::InitializeCursors(){
 	cursor2 = new Cursor(&tableauSection, 0);
 }
 
-Section* Game::GetPileSection(CardPile* pile){
+Section* Game::GetPileSection(const CardPile* pile){
 	if(tableauSection.GetIndexOf(pile) != -1)
 		return &tableauSection;
 	if(foundationSection.GetIndexOf(pile) != -1)

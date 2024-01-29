@@ -20,5 +20,5 @@ struct Game{
 	~Game();
 
 	void InitializeCursors();
-	Section* GetPileSection(CardPile* pile);
+	Section* GetPileSection(const CardPile* pile);
 };

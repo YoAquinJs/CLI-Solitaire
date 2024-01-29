@@ -8,7 +8,7 @@
 std::string CardContentPrint(Card* card, const int i, const int j);
 std::string CardTopPrint(Card* card, Game* game, const int i, const int j);
 
-void Render(Game* game, int &moveCount){
+void Render(Game* game, const int &moveCount){
 	#ifdef _WIN32
 		system("cls");
 	#else

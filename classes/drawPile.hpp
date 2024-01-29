@@ -8,7 +8,7 @@ class DrawPile : public CardPile {
 	bool CanAddCard(Card* card) override;
 
 	public:
-		DrawPile(std::vector<Card*>* initialCards);
+		explicit DrawPile(std::vector<Card*>* initialCards);
 
 		void InitPile();
 		bool MoveCard(CardPile* destination) override;
