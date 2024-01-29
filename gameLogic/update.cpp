@@ -26,16 +26,13 @@ void Update(Game* game, int drawDeckSize, int &moveCount){
 			std::string rawInput;
 			std::cin >> rawInput;
 
-			if (rawInput.size() != 1){
-				ColorPrint("Invalid Action, more than a single character", RED);
-				WaitForEnter();
-				return;
+			for (char command: rawInput){
+				PerformAction(game, std::tolower(command), drawDeckSize, moveCount);
+				if (WonGame(game)){
+					game->state = GameState::WON;
+					break;
+				}
 			}
-
-			PerformAction(game, std::tolower(rawInput[0]), drawDeckSize, moveCount);
-
-			if (WonGame(game))
-				game->state = GameState::WON;
 
 			FillRenderMatrix(game);
 		}break;
