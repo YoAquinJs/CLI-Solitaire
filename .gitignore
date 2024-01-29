@@ -1,4 +1,6 @@
 .vscode/
+linter-cppcheck-build-dir/
+*.cppcheck
 *.exe
 test.cpp
 main
