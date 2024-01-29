@@ -114,10 +114,11 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 			break;
 		case 'k':
 			if (!game->cursor1->locked){
-				ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
-				WaitForEnter();
+				game->cursor1->locked=true;
+				game->cursor2->locked=false;
 			}else
 				game->cursor1->locked=false;
+				game->cursor2->locked=true;
 			break;
 
 		case 'j':
