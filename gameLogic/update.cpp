@@ -39,7 +39,7 @@ void Update(Game* game, int drawDeckSize, int &moveCount){
 		case GameState::WON:
 			WaitForEnter();
 
-			exit(EXIT_SUCCESS);
+			game->state = GameState::START;
 			break;
 	}
 }
