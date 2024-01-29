@@ -8,7 +8,7 @@ class Column : public CardPile {
 	bool CanAddCard(Card* card) override;
 		
 	public:
-		Column(std::vector<Card*>* initialCards);
+		explicit Column(std::vector<Card*>* initialCards);
 		
 		bool MoveCard(CardPile* destination) override;
 		bool MoveSubColumn(int index, Column* destination);

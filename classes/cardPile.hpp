@@ -16,7 +16,7 @@ class CardPile : public Linkable<CardPile>{
 		virtual bool CanAddCard(Card* card);
 
 	public:
-		CardPile(std::vector<Card*>* initialCards);
+		explicit CardPile(std::vector<Card*>* initialCards);
 		~CardPile();
 
 		int Count();

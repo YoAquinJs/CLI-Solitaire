@@ -6,7 +6,7 @@
 
 class Foundation : public CardPile {
 	bool CanAddCard(Card* card) override;
-	
+
 	public:
 		Foundation();
 };

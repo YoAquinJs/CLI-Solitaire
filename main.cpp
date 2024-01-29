@@ -39,7 +39,7 @@ int main(){
 		game.tableauSection.AddPile(new Column(deck.GetRange(i)));
 	}
 
-	game.SetCursors();
+	game.InitializeCursors();
 
 	//Card Pile links
 	game.drawSection.GetAt(0)->LinkTo(game.drawSection.GetAt(1), Direction(1,0));

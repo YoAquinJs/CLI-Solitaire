@@ -14,7 +14,7 @@ const std::string BLUE   = "\033[34m";
 
 const int windowWidth = 60;
 
-int StringColorExcludingLength(std::string str);
+int StringColorExcludingLength(const std::string& str);
 
-void PrintLine(std::string text, bool endLine=true);
-void ColorPrint(std::string text, std::string color, bool endLine=true);
+void PrintLine(const std::string& text, bool endLine=true);
+void ColorPrint(const std::string& text, const std::string& color, bool endLine=true);

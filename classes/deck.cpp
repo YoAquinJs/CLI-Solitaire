@@ -4,15 +4,15 @@
 #include "deck.hpp"
 
 void Deck::swap (Card* a, Card* b) {
-    Card temp = *a;
-    *a = *b;
-    *b = temp;
+	Card temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
 Deck::Deck() : fetchedCards(0) {
 	deckSize = suitSize*rankSize;
 	cards = new Card*[deckSize];
-	
+
 	for (int i = 0; i < suitSize; i++){
 		CardSuit suit = static_cast<CardSuit>(i);
 		for (int j = 0; j < rankSize; j++){
@@ -26,15 +26,14 @@ Deck::Deck() : fetchedCards(0) {
 void Deck::Shuffle(){
 	srand (time(NULL));
 	for (int i = deckSize - 1; i > 0; i--) {
-	    int j = rand() % (i + 1);
-	    swap(cards[i], cards[j]);
+		int j = rand() % (i + 1);
+		swap(cards[i], cards[j]);
 	}
 }
 
 int Deck::GetSize(){
 	return deckSize;
 }
-
 
 std::vector<Card*>* Deck::GetRange(int count){
 	std::vector<Card*>* pileStack = new std::vector<Card*>();

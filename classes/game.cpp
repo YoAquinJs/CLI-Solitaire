@@ -1,14 +1,15 @@
 #include "game.hpp"
 #include "section.hpp"
 
-Game::Game() : state(GameState::START), drawSection(Section()), foundationSection(Section()), tableauSection(Section()) {}
+Game::Game() : state(GameState::START), drawSection(Section()), foundationSection(Section()), tableauSection(Section()),
+				cursor1(nullptr), cursor2(nullptr), renderMatrix() {}
 
 Game::~Game(){
 	delete cursor1;
 	delete cursor2;
 }
 
-void Game::SetCursors(){
+void Game::InitializeCursors(){
 	cursor1 = new Cursor(&drawSection, 0);
 	cursor2 = new Cursor(&tableauSection, 0);
 }

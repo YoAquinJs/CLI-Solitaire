@@ -16,7 +16,7 @@ void PerformAction(Game* game, char input, int drawDeck, int &moveCount);
 void Update(Game* game, int drawDeckSize, int &moveCount){
 	switch (game->state){
 		case GameState::START:
-    		WaitForEnter();
+			WaitForEnter();
 
 			game->state = GameState::ONGAME;
 			FillRenderMatrix(game);
@@ -49,7 +49,7 @@ void Update(Game* game, int drawDeckSize, int &moveCount){
 
 
 void WaitForEnter(){
-	std::cin.clear();	
+	std::cin.clear();
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cin.get();
 }
@@ -79,7 +79,7 @@ void FillRenderMatrix(Game* game){
 
 void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 	auto getSectionFunc = [&game](CardPile* pile) {
-    	return game->GetPileSection(pile);
+		return game->GetPileSection(pile);
 	};
 
 	switch (input){
@@ -118,12 +118,12 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 		case 'k':
 			if (!game->cursor1->locked){
 				ColorPrint("Invalid Action, cannot unlock cursor, when it's not locked", RED);
-	    		WaitForEnter();
+				WaitForEnter();
 			}else
 				game->cursor1->locked=false;
 			break;
 
-		case 'j':	
+		case 'j':
 			//Draw pile Interactions
 			if (!game->cursor1->locked){
 				if (game->cursor1->GetPile() != game->drawSection.GetAt(0))
@@ -197,12 +197,12 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				break;
 			}
 			break;
-				
+
 		default:
 			std::string response = "Invalid Input: ";
 			response += input;
 			ColorPrint(response, RED);
-    		WaitForEnter();
+			WaitForEnter();
 			break;
 		}
 }

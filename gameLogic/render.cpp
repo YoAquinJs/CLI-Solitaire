@@ -10,10 +10,10 @@ std::string CardTopPrint(Card* card, Game* game, const int i, const int j);
 
 void Render(Game* game, int &moveCount){
 	#ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
+		system("cls");
+	#else
+		system("clear");
+	#endif
 
 	std::string title = "SOLITAIRE!";
 	std::string titleLine = "";
@@ -102,8 +102,6 @@ std::string CardContentPrint(Card* card, const int i, const int j){
 	else{
 		if (card->GetSuit() == CardSuit::HEARTS || card->GetSuit() == CardSuit::DIAMONDS)
 			print+=RED;
-			
-		int rank = static_cast<int>(card->GetRank());
 		print += "|";
 		print += card->SuitToChar();
 		print += card->RankToStr();

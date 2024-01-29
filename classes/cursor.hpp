@@ -10,7 +10,7 @@ class Cursor{
 	CardPile* pile;
 	Section* section;
 	unsigned int cardIndex;
-	
+
 	public:
 		bool locked;
 

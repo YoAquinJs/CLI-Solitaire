@@ -48,8 +48,8 @@ std::string Card::RankToStr(){
 			return "10";
 			break;
 		default:
-			int rank = static_cast<int>(this->rank);
-			return "0"+std::to_string(rank);
+			int num_rank = static_cast<int>(this->rank);
+			return "0"+std::to_string(num_rank);
 			break;
 	}}
 

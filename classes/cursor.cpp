@@ -7,7 +7,7 @@ void Cursor::SetIndexToZero(){
 	cardIndex = 0;
 }
 
-void Cursor::Move(Direction direction, std::function<Section* (CardPile*)> getSection){	
+void Cursor::Move(Direction direction, std::function<Section* (CardPile*)> getSection){
 	int newCard = cardIndex + direction.y;
 
 	bool offLimitCard = false;
@@ -34,7 +34,7 @@ void Cursor::Move(Direction direction, std::function<Section* (CardPile*)> getSe
 }
 
 int Cursor::GetIndex(){
-	return cardIndex;	
+	return cardIndex;
 }
 
 CardPile* Cursor::GetPile(){

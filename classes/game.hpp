@@ -6,7 +6,7 @@
 enum class GameState { START, ONGAME, WON };
 
 struct Game{
-	GameState state;		
+	GameState state;
 	Card* renderMatrix[7][14];
 	
 	Cursor* cursor1;
@@ -19,6 +19,6 @@ struct Game{
 	Game();
 	~Game();
 
-	void SetCursors();
+	void InitializeCursors();
 	Section* GetPileSection(CardPile* pile);
 };

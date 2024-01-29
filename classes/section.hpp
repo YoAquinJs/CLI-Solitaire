@@ -13,7 +13,7 @@ class Section{
 		~Section();
 		
 		int Count();
-		int GetIndexOf(CardPile* pile);
+		int GetIndexOf(const CardPile* pile);
 		CardPile* GetAt(int index);
 		
 		void AddPile(CardPile* pile);

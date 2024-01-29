@@ -6,7 +6,7 @@
 
 class Deck{
 	Card** cards;
-	
+
 	int deckSize;
 	int fetchedCards;
 

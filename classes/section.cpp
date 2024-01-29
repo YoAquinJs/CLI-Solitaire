@@ -10,14 +10,14 @@ Section::~Section(){
 }
 
 void Section::AddPile(CardPile* pile){
- 	piles.push_back(pile);
+	piles.push_back(pile);
 }
 
 int Section::Count(){
 	return piles.size();
 }
 
-int Section::GetIndexOf(CardPile* pile){
+int Section::GetIndexOf(const CardPile* pile){
 	for(int i=0; i < piles.size(); i++){
 		if (piles[i] == pile)
 			return i;

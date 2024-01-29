@@ -5,7 +5,7 @@
 Column::Column(std::vector<Card*>* initialCards) : CardPile(initialCards) {
 	for (int i = 1; i < cards->size(); i++) {
 		GetAt(i)->hidden = true;
-    }
+	}
 	GetAt(0)->hidden = false;
 }
 
@@ -30,7 +30,7 @@ bool Column::MoveSubColumn(int index, Column* destination){
 	if (Count() == 0 || GetAt(index)->hidden || !destination->CanAddCard(GetAt(index)))
 		return false;
 
-    for (int i = index; i > -1; i--){
+	for (int i = index; i > -1; i--){
 		destination->AddCard(GetAt(i));
 		cards->erase(cards->begin() + i);
 	}
