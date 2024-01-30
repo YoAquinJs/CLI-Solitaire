@@ -11,7 +11,7 @@
 void WaitForEnter();
 void FillRenderMatrix(Game* game);
 bool WonGame(Game* game);
-void PerformAction(Game* game, char input, int drawDeck, int &moveCount);
+bool PerformAction(Game* game, char input, int drawDeck, int &moveCount);
 
 void Update(Game* game, int drawDeckSize, int &moveCount){
 	switch (game->state){
@@ -27,7 +27,9 @@ void Update(Game* game, int drawDeckSize, int &moveCount){
 			std::cin >> rawInput;
 
 			for (char command: rawInput){
-				PerformAction(game, std::tolower(command), drawDeckSize, moveCount);
+				bool succeded = PerformAction(game, std::tolower(command), drawDeckSize, moveCount);
+				if (!succeded)
+					break;
 				if (WonGame(game)){
 					game->state = GameState::WON;
 					break;
@@ -74,7 +76,7 @@ void FillRenderMatrix(Game* game){
 	}
 }
 
-void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
+bool PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 	auto getSectionFunc = [&game](CardPile* pile) {
 		return game->GetPileSection(pile);
 	};
@@ -143,7 +145,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();
-					break;
+					return false;
 				}
 
 				if(game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile())))
@@ -155,7 +157,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();
-					break;
+					return false;
 				}
 
 				if(dynamic_cast<Column*>(game->cursor1->GetPile())->MoveSubColumn(game->cursor1->GetIndex(), dynamic_cast<Column*>(game->cursor2->GetPile()))){
@@ -169,7 +171,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				if(game->cursor1->GetIndex() != 0){
 					ColorPrint("Can only move a single card to foundation", RED);
 					WaitForEnter();
-					break;
+					return false;
 				}
 
 				if(game->cursor1->GetPile()->MoveCard(dynamic_cast<Foundation*>(game->cursor2->GetPile())))
@@ -180,7 +182,7 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				if(game->cursor2->GetIndex() != 0){
 					ColorPrint("Can only move to the columns top card", RED);
 					WaitForEnter();
-					break;
+					return false;
 				}
 
 				if(game->cursor1->GetPile()->MoveCard(dynamic_cast<Column*>(game->cursor2->GetPile())))
@@ -194,8 +196,9 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 			response += input;
 			ColorPrint(response, RED);
 			WaitForEnter();
-			break;
+			return false;
 		}
+	return true;
 }
 
 bool WonGame(Game* game){
