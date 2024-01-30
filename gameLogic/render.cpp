@@ -73,7 +73,8 @@ void Render(Game* game, const int &moveCount){
 			PrintLine("Cursor Directions");
 			PrintLine("(W) up | (S) down | (A) left | (D) rigth");
 			PrintLine("Commands");
-			PrintLine("(L) lock the cursor | (K) unlock the cursor");
+			PrintLine("(K) to lock the blue cursor if unlocked");
+			PrintLine("(K) to hide the yellow cursor and realease the blue cursor");
 			PrintLine(BLUE+"blue"+RESET+" cursor is the origin and the "+YELLOW+"yellow"+RESET+" the destination");
 			PrintLine("(J) to perform a movement");
 			std::cout << std::endl;
