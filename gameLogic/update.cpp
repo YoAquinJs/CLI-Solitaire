@@ -105,13 +105,6 @@ void PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
 				game->cursor1->Move(Direction(1,0), getSectionFunc);
 			break;
 
-		case 'l':
-			if (game->cursor1->locked){
-				ColorPrint("Invalid Action, cannot lock both cursors", RED);
-				WaitForEnter();
-			}else
-				game->cursor1->locked=true;
-			break;
 		case 'k':
 			if (!game->cursor1->locked){
 				game->cursor1->locked=true;
