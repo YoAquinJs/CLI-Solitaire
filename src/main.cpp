@@ -1,11 +1,10 @@
 #include <string>
 #include <vector>
 
-#include "gameLogic/utils.hpp"
-#include "gameLogic/gameLogic.hpp"
-#include "classes/piles.hpp"
-#include "classes/deck.hpp"
-#include "classes/game.hpp"
+#include "gameLogic.hpp"
+#include "piles.hpp"
+#include "deck.hpp"
+#include "game.hpp"
 
 /*Run Commands
 - Windows
