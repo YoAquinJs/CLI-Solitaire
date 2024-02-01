@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-#include "../classes/card.hpp"
+#include "classes/card.hpp"
 
 const std::string RESET  = "\033[0m";
 const std::string RED    = "\033[31m";

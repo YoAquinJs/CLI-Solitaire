@@ -2,9 +2,9 @@
 #include <limits>
 #include <cstdlib>
 
-#include "../classes/piles.hpp"
-#include "gameLogic.hpp"
 #include "utils.hpp"
+#include "gameLogic.hpp"
+#include "classes/piles.hpp"
 
 void WaitForEnter();
 void FillRenderMatrix(Game* game);

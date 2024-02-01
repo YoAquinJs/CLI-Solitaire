@@ -14,3 +14,5 @@ set(sources
 add_library(${This} SHARED ${headers} ${sources})
 
 target_include_directories(${This} PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+
+target_link_libraries(${This} PRIVATE classes)

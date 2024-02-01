@@ -2,15 +2,9 @@ set(This classes)
 
 set(headers
 	card.hpp
-	cardPile.hpp
 	deck.hpp
-	drawPile.hpp
-	column.hpp
-	foundation.hpp
-	direction.hpp
+	piles.hpp
 	linkable.hpp
-	section.hpp
-	cursor.hpp
 	game.hpp
 )
 
