@@ -22,7 +22,6 @@ set(sources
 	column.cpp
 	foundation.cpp
 	direction.cpp
-	linkable.cpp
 	section.cpp
 	cursor.cpp
 	game.cpp

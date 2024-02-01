@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.28)
 
 set(This Solitarie)
 project(${This})
@@ -15,10 +15,3 @@ target_link_libraries(${This}
 	classes
 	gameLogic
 )
-
-# Optionally, if you have header files in a separate directory, you can include them like this:
-# include_directories(include)
-
-# Optionally, if you have external libraries, you can find and link them like this:
-# find_package(SomeLibrary REQUIRED)
-# target_link_libraries(MyExecutable SomeLibrary::SomeLibrary)
