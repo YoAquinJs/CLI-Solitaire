@@ -21,7 +21,7 @@ int CardPile::Count(){
 }
 
 Card* CardPile::GetAt(int index){
-	if (index >= Count())
+	if (index >= Count() || index < 0)
 		return nullptr;
 	return cards->at(index);
 }

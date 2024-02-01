@@ -66,12 +66,14 @@ void FillRenderMatrix(Game* game){
 	}
 
 	//Tableu Section
-	for (int i = 1; i < 14; i++){
+	for (int i = 1; i <= static_cast<int>(CardRank::KING); i++){
 		for (int j = 0; j < game->tableauSection.Count(); j++){
 			Column* column = static_cast<Column*>(game->tableauSection.GetAt(j));
-			game->renderMatrix[j][i] = game->tableauSection.GetAt(j)->GetAt(column->Count()-i);
+			game->renderMatrix[j][i] = column->GetAt(column->Count()-i);
 		}
 	}
+	std::cout << "Render matrix filled" << std::endl;
+
 }
 
 bool PerformAction(Game* game, char input, int drawDeckSize, int &moveCount){
