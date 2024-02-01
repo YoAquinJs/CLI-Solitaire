@@ -1,4 +1,4 @@
-#include "direction.hpp"
+#include "linkable.hpp"
 
 Direction::Direction(int x, int y) : x(x), y(y) {}
 

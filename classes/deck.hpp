@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "cardPile.hpp"
+#include "card.hpp"
 
 class Deck{
 	Card** cards;

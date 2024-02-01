@@ -2,7 +2,14 @@
 
 #include <map>
 
-#include "direction.hpp"
+struct Direction{
+	int x;
+	int y;
+
+	Direction(int x, int y);
+};
+
+bool operator<(const Direction& l, const Direction& r);
 
 template<typename T>
 class Linkable{

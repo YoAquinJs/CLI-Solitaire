@@ -1,6 +1,10 @@
 #pragma once
 
 #include <string>
+#include <map>
+#include <vector>
+
+#include "linkable.hpp"
 
 const int suitSize = 4;
 const int rankSize = 13;
@@ -24,4 +28,23 @@ class Card{
 		
 		bool IsOneLesserRank(const Card* card);
 		bool IsDiffColor(const Card* card);
+};
+
+class CardPile : public Linkable<CardPile>{
+	protected:
+		std::vector<Card*>* cards;
+		std::map<Direction, CardPile*> surroundingPiles;
+
+		virtual void AddCard(Card* card);
+		virtual bool CanAddCard(Card* card);
+
+	public:
+		explicit CardPile(std::vector<Card*>* initialCards);
+		~CardPile();
+
+		int Count();
+		Card* GetAt(int index);
+		
+		bool TryAddCard(Card* card);
+		virtual bool MoveCard(CardPile* destination);
 };

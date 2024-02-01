@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "cardPile.hpp"
+#include "card.hpp"
 
 CardPile::CardPile(std::vector<Card*>* initialCards) : cards(initialCards), surroundingPiles(std::map<Direction, CardPile*>()) {}
 
@@ -20,7 +20,7 @@ int CardPile::Count(){
 	return cards->size();
 }
 
-Card* CardPile::GetAt(unsigned int index){
+Card* CardPile::GetAt(int index){
 	if (index >= Count())
 		return nullptr;
 	return cards->at(index);

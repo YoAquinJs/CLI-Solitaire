@@ -1,5 +1,4 @@
 #include "game.hpp"
-#include "section.hpp"
 
 Game::Game() : state(GameState::START), drawSection(Section()), foundationSection(Section()), tableauSection(Section()),
 				cursor1(nullptr), cursor2(nullptr), renderMatrix() {}

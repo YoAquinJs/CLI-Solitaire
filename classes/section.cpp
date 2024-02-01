@@ -1,5 +1,4 @@
-#include "section.hpp"
-#include "cardPile.hpp"
+#include "game.hpp"
 
 Section::Section() : piles(std::vector<CardPile*>()) {}
 

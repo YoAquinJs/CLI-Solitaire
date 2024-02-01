@@ -1,6 +1,6 @@
 #include <algorithm>
 
-#include "drawPile.hpp"
+#include "piles.hpp"
 
 DrawPile::DrawPile(std::vector<Card*>* initialCards) : CardPile(initialCards){
 	std::reverse(cards->begin(), cards->end());

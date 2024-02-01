@@ -1,5 +1,5 @@
-#include "cursor.hpp"
-#include "column.hpp"
+#include "game.hpp"
+#include "piles.hpp"
 
 Cursor::Cursor(Section* section , int pileIndex) : section(section), pile(section->GetAt(pileIndex)), cardIndex(0), locked(false) {}
 
