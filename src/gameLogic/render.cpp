@@ -2,8 +2,8 @@
 #include <cstdlib>
 #include <iostream>
 
-#include "gameLogic.hpp"
 #include "utils.hpp"
+#include "gameLogic.hpp"
 
 std::string CardContentPrint(Card* card, const int i, const int j);
 std::string CardTopPrint(Card* card, Game* game, const int i, const int j);

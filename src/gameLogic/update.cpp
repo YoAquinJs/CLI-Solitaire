@@ -4,7 +4,7 @@
 
 #include "utils.hpp"
 #include "gameLogic.hpp"
-#include "piles.hpp"
+#include "../classes/piles.hpp"
 
 void WaitForEnter();
 void FillRenderMatrix(Game* game);
