@@ -2,9 +2,7 @@
 #include <limits>
 #include <cstdlib>
 
-#include "../classes/foundation.hpp"
-#include "../classes/drawPile.hpp"
-#include "../classes/column.hpp"
+#include "../classes/piles.hpp"
 #include "gameLogic.hpp"
 #include "utils.hpp"
 

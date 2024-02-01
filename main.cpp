@@ -3,9 +3,7 @@
 
 #include "gameLogic/utils.hpp"
 #include "gameLogic/gameLogic.hpp"
-#include "classes/foundation.hpp"
-#include "classes/drawPile.hpp"
-#include "classes/column.hpp"
+#include "classes/piles.hpp"
 #include "classes/deck.hpp"
 #include "classes/game.hpp"
 

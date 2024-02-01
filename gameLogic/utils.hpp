@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 
-#include "../classes/cardPile.hpp"
 #include "../classes/card.hpp"
 
 const std::string RESET  = "\033[0m";
