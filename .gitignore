@@ -1,6 +1,7 @@
 .vscode/
+build/
+googletest/
 linter-cppcheck-build-dir/
 *.cppcheck
 *.exe
-test.cpp
 main
