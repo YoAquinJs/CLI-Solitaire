@@ -1,6 +1,6 @@
-# Terminal-Solitarie
+# CLI-Solitaire
 
-### Classic solitarie game for my Object oriented Programming class
+### Classic solitaire game for my Object-oriented Programming class
 
 Using g++ compiler (version 13). Commands to compile:
 
@@ -14,7 +14,7 @@ Using g++ compiler (version 13). Commands to compile:
 
 #### How to play
 
-The game contains 2 cursors, one blue which represents the origin card, and a yellow one which represents the destination position of a movement.
+The game contains 2 cursors, one blue representing the origin card, and a yellow representing the movement's destination position.
 
 To play insert a command or direction for the cursors:
 * Directions: (**w**) up | (**a**) left | (**s**) down | (**d**) right
